@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function (){
-    return redirect()->route('login');
+    return view('index');
 });
 
 

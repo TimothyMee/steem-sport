@@ -1,0 +1,396 @@
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1200px) {
+.liveon-sub-title a {
+  font-size: 17px;
+}
+/* home-3 */
+.post-row-3 .meta-box-left span {
+  margin-left: 7px;
+}
+.post-row-3 .meta-box-right ul.share-box li h3, .post-row-3 .meta-box-right ul.share-box li a, .post-row-3 .meta-box ul.sticker-box li h3.post-share-title {
+  font-size: 12px;
+}
+.cap-dec h1 {
+  font-size: 55px;
+  line-height: 50px;
+}
+/* home-4 */
+.post-row-4 .post-heading > a {
+  font-size: 20px;
+}
+.post-row-4 .sticker-box {
+  display: none;
+}
+.post-row-4 .post-body p {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+/* home-5 */
+.header-area.header-area-5 .mainmenu ul li .mega-menu {
+  left: -240px;
+}
+.header-area.header-area-5 .mainmenu ul li ul.submenu {
+  left: -19px;
+}
+/* about-page */
+.admin-img img {
+  width: 200px;
+}
+.admin-img {
+  bottom: -98px;
+}
+}
+
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+/* home-1 */
+header.navbar-fixed-top {
+  position: static;
+  animation: none;
+  display:none;
+}
+.cap-dec h1 {
+  font-size: 42px;
+  line-height: 52px;
+  margin-bottom: 15px;
+}
+.cap-text p {
+  margin-bottom: 30px;
+}
+.widget-area {
+  margin-top: 60px;
+}
+.pagination {
+  margin-bottom: 0;
+  margin-top: 30px;
+}
+.post-row-4 .post-body p {
+  margin-bottom: 18px;
+}
+.blog-area{
+  padding-bottom: 60px;
+}
+/* home-5 */
+.header-area.header-area-5.ptb-15.black-bg {
+  padding: 0;
+}
+.header-area-5 .logo {
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+}
+.pagination.pagination-7 {
+  margin: 0;
+}
+/* standard-post-left-sidebar */
+.post-left-s_bar{
+	margin:0;
+}
+.header-post-img.post-left-s_bar-img {
+  margin-top: 50px;
+}
+/* about-page */
+.admin-img > img {
+  width: 150px;
+}
+.admin-img {
+  bottom: -71px;
+}
+/* comming-soon-page */
+.comming-area h3 {
+  font-size: 90px;
+  line-height: 90px;
+  margin-bottom: 40px;
+}
+.comming-content p {
+  font-size: 18px;
+  line-height: 30px;
+}
+.upcoming .cdown {
+  width: 170px;
+}
+}
+
+ 
+/* small mobile :320px. */
+@media (max-width: 767px) {
+.container {width:300px}
+/* home-1 */
+.sticky {
+  animation: 0s ease 0s normal none 1 running none;
+  position: static;
+}
+header.navbar-fixed-top {
+  position: static;
+  animation: none;
+  display:none;
+}
+.slide1-text {
+  display: none;
+}
+.nivo-directionNav a {
+  font-size: 18px;
+  height: 40px;
+  line-height: 38px;
+  margin-top: -17px;
+  width:40px;
+} 
+.blog-area {
+  padding: 0 0 50px;
+}
+.post-meta {
+  padding: 10px 15px 0;
+}
+.post-share-title {
+  font-size: 14px;
+  line-height:21px;
+}
+.post-meta li {
+  margin: 0;
+}
+.meta-box-left span {
+  font-size: 14px;
+}
+.post-heading a {
+  font-size: 23px;
+  line-height: 31px;
+}
+.post-body p {
+  font-size: 14px;
+  line-height: 23px;
+}
+.sticker-box a, .share-box a {
+  font-size: 14px;
+}
+.post-tag {
+  margin-top: 20px;
+}
+.post-tag a {
+  font-size: 15px;
+  padding: 10px 12px;
+}
+.btn-post a {
+  font-size: 16px;
+  padding: 8px 16px;
+}
+.meta-box {
+  float: left;
+}
+.sticker-box {
+  display: none;
+}
+.meta-box.meta-box-left {
+  display: none;
+}
+.play-btn {
+  border: 3px solid #fff;
+  font-size: 15px;
+  height: 40px;
+  line-height: 34px;
+  width: 40px;
+}
+.meta-box {
+  float: left !important;
+}
+.post-row, .widget-area{
+  margin-top: 50px;
+}
+.widget-area.mb-60 {
+  margin-bottom: 50px;
+}
+.liveon-sub-title a {
+  font-size: 16px;
+}
+.latest-post-title a {
+  font-size: 14px;
+}
+.latest-post-meta {
+  font-size: 13px;
+}
+.pagination > li > a, .pagination > li > span {
+  font-size: 15px;
+}
+.flickr-list li {
+  width: 100%;
+}
+.widget-form {
+  padding: 30px 20px 30px;
+}
+.pagination.foo {
+  margin-top: 30px;
+}
+.instegram-list li {
+  width: 100%;
+}
+.footer-social-link {
+  text-align: left;
+}
+.footer-social-link li:first-child {
+  margin: 0 18px;
+}
+/* home-4 */
+.row.mt-80 {
+  margin-top: 30px;
+}
+.post-row-4 .post-heading > a {
+  display: inline-block;
+  margin-top: 15px;
+}
+/* home-5 */
+.header-area.header-area-5.ptb-15.black-bg {
+  padding: 0;
+}
+.header-area-5 .logo {
+  margin: 0;
+  padding: 10px 0;
+  text-align: center;
+}
+/* home-6 */
+.col-lg-4.col-md-4.col-sm-6.col-xs-12.mt-80 {
+  margin: 0;
+}
+.col-xs-12.text-right.mt-50 {
+  margin-top: 26px;
+}
+/* home-7 */
+.post-row.post-row-3.mb-80 {
+  margin: 0;
+}
+.blog-area-7 .btn-post {
+    margin-bottom: 30px;
+}
+.blog-area.blog-area-7 {
+  margin-top: 30px;
+}
+/* standard-post-page */
+.header-caption p, .header-caption a {
+  font-size: 16px;
+}
+.page-header {
+  padding: 50px 0 0;
+}
+blockquote {
+  font-size: 18px;
+  margin: 30px 0;
+  padding: 18px 39px;
+}
+.standard-icon ul li {
+  margin-right: 5px;
+}
+.standard-icon {
+  margin: 30px 0;
+}
+.popular_title {
+  margin-bottom: 0;
+}
+.comment-area{
+  margin-top: 40px;
+}
+.user-text {
+  padding-left: 0;
+  padding-top: 80px;
+}
+.cmnt-meta {
+  position: absolute;
+  right: 0;
+  top: -18px;
+}
+.user-text > p {
+  font-size: 13px;
+  margin: 0;
+}
+.user-comment-inner ol li ol {
+  margin-left: 25px;
+}
+.comments-fields form input {
+  margin-bottom: 20px;
+}
+/* category-page */
+.blog-area.category-football {
+  margin-top: 50px;
+}
+.page-header.category-football .header-caption p, .page-header.category-football .header-caption p a {
+  font-size: 14px;
+}
+/* about-page */
+.admin-img {
+  bottom: -26px;
+}
+.admin-img > img {
+  width: 64px;
+}
+.about-me-content h3 {
+  font-size: 20px;
+}
+.about-me-content > p {
+  font-size: 14px;
+}
+.about-page-video {
+  margin-top: 50px;
+}
+.about-page-video > p {
+  font-size: 14px;
+}
+.about-us-area{
+  padding: 50px 0;
+}
+.find-me.mt-30 > p {
+  font-size: 14px;
+}
+/* error-page */
+.caption-content p {
+  font-size: 100px;
+  line-height: 120px;
+  margin-bottom: 40px;
+}
+.caption-content h3 {
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+.error-btn button {
+  margin: 11px 7px;
+}
+.error-nav ul li a {
+  font-size: 17px;
+  margin:7px 5px;
+}
+/* comming-soon-page */
+.comming-area h3 {
+  font-size: 36px;
+  line-height: 60px;
+  margin-bottom: 29px;
+}
+.comming-content p {
+  font-size: 14px;
+  line-height:24px;
+}
+.upcoming .cdown {
+  padding: 0 17px;
+  width: 63px;
+}
+.cdown .time-count {
+  font-size: 25px;
+  line-height: 31px;
+}
+}
+ 
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+.container {width:450px}
+ .latest-post-title {
+  line-height: 0;
+}
+.flickr-list li , .instegram-list li {
+  width: 50%;
+}
+
+.latest-post-title a {
+  font-size: 18px;
+}
+.post-row-4 .post-heading > a {
+  display: inline-block;
+  font-size: 20px;
+  margin-top: 15px;
+}
+}
+ 

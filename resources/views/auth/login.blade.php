@@ -55,7 +55,7 @@
                          <h2>OR</h2>
                          <hr>
 
-                         Sign in with Steem-Connect <br>
+                         Sign in with SteemConnect <br>
 
                          <button class="btn btn-primary btn-lg">Sign in With Steem-Connect</button>
                      </div>

@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-10">
                     <div class="logo">
-                        <a href="index-4.html"><!--<img src="img/logo.png" alt="" />--> <h1 class="text">Steem-Sport</h1></a>
+                        <a href="#"><!--<img src="img/logo.png" alt="" />--> <h1 class="text">Steem-Sport</h1></a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 hidden-sm hidden-xs">

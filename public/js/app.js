@@ -97389,6 +97389,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -97487,7 +97488,32 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "rs-breadcrumbs sec-color" }, [
+      _c("img", {
+        attrs: {
+          src: "/assets/v1/images/breadcrumbs/blog-left.jpg",
+          alt: "Breadcrubs-image"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "breadcrumbs-inner" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12 text-center" }, [
+              _c("h1", { staticClass: "page-title" }, [_vm._v("News")]),
+              _vm._v(" "),
+              _c("ul", [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("li", [_vm._v("News")]),
+                _vm._v(" "),
+                _c("li", [_vm._v("-- Page " + _vm._s(_vm.pagination))])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "rs-blog sec-spacer", attrs: { id: "rs-blog" } }, [
       _c("div", { staticClass: "container" }, [
@@ -97988,32 +98014,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "rs-breadcrumbs sec-color" }, [
-      _c("img", {
-        attrs: {
-          src: "/assets/v1/images/breadcrumbs/blog-left.jpg",
-          alt: "Breadcrubs-image"
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "breadcrumbs-inner" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-12 text-center" }, [
-              _c("h1", { staticClass: "page-title" }, [_vm._v("News")]),
-              _vm._v(" "),
-              _c("ul", [
-                _c("li", [
-                  _c("a", { staticClass: "active", attrs: { href: "/home" } }, [
-                    _vm._v("Home")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [_vm._v("News")])
-              ])
-            ])
-          ])
-        ])
+    return _c("li", [
+      _c("a", { staticClass: "active", attrs: { href: "/home" } }, [
+        _vm._v("Home")
       ])
     ])
   },

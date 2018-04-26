@@ -22,6 +22,7 @@
                                     <a class="active" href="/home">Home</a>
                                 </li>
                                 <li>News</li>
+                                <li>-- Page {{pagination}}</li>
                             </ul>
                         </div>
                     </div>

@@ -39,13 +39,13 @@
                             <div class="col-md-4 col-sm-6 col-xs-6" v-for="news in newsData">
                                 <div class="single-blog-slide" v-if="news.page == pagination">
                                     <div class="images">
-                                        <a href="#" v-if="news.previewImage">
+                                        <a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal" v-if="news.previewImage">
                                             <img :src="news.previewImage"
                                                  style="max-height:200px; width: 100%; height:200px;"
                                                  alt="Blog Image">
                                         </a>
 
-                                        <a href="#" v-else>
+                                        <a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal" v-else>
                                             <img src="/assets/v1/images/video-bg.jpg"
                                                  style="max-height:200px; width: 100%; height:200px;"
                                                  alt="Blog Image">
@@ -53,9 +53,9 @@
                                     </div>
                                     <div class="blog-details">
                                         <span class="date"><i class="fa fa-calendar-check-o"></i>{{moment(news.created).format("MMMM Do YYYY")}}</span>
-                                        <h3><a href="#">{{news.title}}</a></h3>
+                                        <h3><a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal">{{news.title}}</a></h3>
                                         <div class="read-more">
-                                            <a href="#">Read More</a>
+                                            <a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal">Read More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                             <div class="cate-box">
                                 <span class="title">Categories <span class="badge">new</span></span>
                                 <ul>
-                                    <li v-for="(index,news) in newsData" v-if="index < 12">
+                                    <li v-for="(news,index) in newsData" v-if="index < 12">
                                         <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">{{news.category}}</a>
                                     </li>
                                 </ul>
@@ -165,7 +165,7 @@
                                                         </div>
                                                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                                                             <h4><a href="#">{{newsData[49].title}}</a></h4>
-                                                            <span class="date"><i class="fa fa-calendar" aria-hidden="true"></i>{{moment(newsData[49].created).format("MMMM Do YYYY")}}}</span>
+                                                            <span class="date"><i class="fa fa-calendar" aria-hidden="true"></i>{{moment(newsData[49].created).format("MMMM Do YYYY")}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -177,7 +177,7 @@
                             <div class="tag-area">
                                 <span class="title">Tags</span>
                                 <ul>
-                                    <li v-for="(index,news) in newsData" v-if="index < 10">
+                                    <li v-for="(news,index) in newsData" v-if="index < 10">
                                         <a href="#">{{news.tag}}</a>
                                     </li>
                                 </ul>
@@ -197,6 +197,20 @@
         </div>
         <!-- Home Blog End Here -->
 
+        <div aria-hidden="true" class="modal fade search-modal" role="dialog" tabindex="-1" id="newsModal">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="fa fa-close"></span>
+            </button>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <p v-html="currentNews" style="color: white">
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 </template>
@@ -209,6 +223,7 @@
                newsData: {},
                 start:false,
                 pagination:1,
+                currentNews:'nothing',
             }
         },
 
@@ -276,6 +291,10 @@
 
             paginate(page){
                 this.pagination = page;
+            },
+
+            openModal(news){
+                this.currentNews = news.newBody;
             }
         }
     }

@@ -97375,13 +97375,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             newsData: {},
             start: false,
-            pagination: 1
+            pagination: 1,
+            currentNews: 'nothing'
         };
     },
     mounted: function mounted() {
@@ -97442,6 +97457,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         paginate: function paginate(page) {
             this.pagination = page;
+        },
+        openModal: function openModal(news) {
+            this.currentNews = news.newBody;
         }
     }
 });
@@ -97487,32 +97505,64 @@ var render = function() {
                       ? _c("div", { staticClass: "single-blog-slide" }, [
                           _c("div", { staticClass: "images" }, [
                             news.previewImage
-                              ? _c("a", { attrs: { href: "#" } }, [
-                                  _c("img", {
-                                    staticStyle: {
-                                      "max-height": "200px",
-                                      width: "100%",
-                                      height: "200px"
-                                    },
+                              ? _c(
+                                  "a",
+                                  {
                                     attrs: {
-                                      src: news.previewImage,
-                                      alt: "Blog Image"
-                                    }
-                                  })
-                                ])
-                              : _c("a", { attrs: { href: "#" } }, [
-                                  _c("img", {
-                                    staticStyle: {
-                                      "max-height": "200px",
-                                      width: "100%",
-                                      height: "200px"
+                                      href: "#",
+                                      "data-target": "#newsModal",
+                                      "data-toggle": "modal"
                                     },
-                                    attrs: {
-                                      src: "/assets/v1/images/video-bg.jpg",
-                                      alt: "Blog Image"
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        _vm.openModal(news)
+                                      }
                                     }
-                                  })
-                                ])
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticStyle: {
+                                        "max-height": "200px",
+                                        width: "100%",
+                                        height: "200px"
+                                      },
+                                      attrs: {
+                                        src: news.previewImage,
+                                        alt: "Blog Image"
+                                      }
+                                    })
+                                  ]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href: "#",
+                                      "data-target": "#newsModal",
+                                      "data-toggle": "modal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        _vm.openModal(news)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticStyle: {
+                                        "max-height": "200px",
+                                        width: "100%",
+                                        height: "200px"
+                                      },
+                                      attrs: {
+                                        src: "/assets/v1/images/video-bg.jpg",
+                                        alt: "Blog Image"
+                                      }
+                                    })
+                                  ]
+                                )
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "blog-details" }, [
@@ -97530,12 +97580,44 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("h3", [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _vm._v(_vm._s(news.title))
-                              ])
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: "#",
+                                    "data-target": "#newsModal",
+                                    "data-toggle": "modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      _vm.openModal(news)
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(news.title))]
+                              )
                             ]),
                             _vm._v(" "),
-                            _vm._m(1, true)
+                            _c("div", { staticClass: "read-more" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: "#",
+                                    "data-target": "#newsModal",
+                                    "data-toggle": "modal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      _vm.openModal(news)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Read More")]
+                              )
+                            ])
                           ])
                         ])
                       : _vm._e()
@@ -97548,7 +97630,7 @@ var render = function() {
               _c("div", { staticClass: "col-sm-12" }, [
                 _c("div", { staticClass: "default-pagination text-center" }, [
                   _c("ul", [
-                    _vm._m(2),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("li", {}, [
                       _c(
@@ -97625,7 +97707,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(3)
+                    _vm._m(2)
                   ])
                 ])
               ])
@@ -97635,11 +97717,11 @@ var render = function() {
           _c("div", { staticClass: "col-md-3 col-sm-12" }, [
             _c("div", { staticClass: "sidebar-area" }, [
               _c("div", { staticClass: "cate-box" }, [
-                _vm._m(4),
+                _vm._m(3),
                 _vm._v(" "),
                 _c(
                   "ul",
-                  _vm._l(_vm.newsData, function(index, news) {
+                  _vm._l(_vm.newsData, function(news, index) {
                     return index < 12
                       ? _c("li", [
                           _c("i", {
@@ -97837,7 +97919,7 @@ var render = function() {
                                         _vm
                                           .moment(_vm.newsData[49].created)
                                           .format("MMMM Do YYYY")
-                                      ) + "}"
+                                      )
                                     )
                                   ])
                                 ]
@@ -97856,7 +97938,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "ul",
-                  _vm._l(_vm.newsData, function(index, news) {
+                  _vm._l(_vm.newsData, function(news, index) {
                     return index < 10
                       ? _c("li", [
                           _c("a", { attrs: { href: "#" } }, [
@@ -97868,12 +97950,37 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(5)
+              _vm._m(4)
             ])
           ])
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade search-modal",
+        attrs: {
+          "aria-hidden": "true",
+          role: "dialog",
+          tabindex: "-1",
+          id: "newsModal"
+        }
+      },
+      [
+        _vm._m(5),
+        _vm._v(" "),
+        _c("div", { staticClass: "modal-dialog modal-dialog-centered" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("p", {
+              staticStyle: { color: "white" },
+              domProps: { innerHTML: _vm._s(_vm.currentNews) }
+            })
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -97908,14 +98015,6 @@ var staticRenderFns = [
           ])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "read-more" }, [
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Read More")])
     ])
   },
   function() {
@@ -97981,6 +98080,28 @@ var staticRenderFns = [
         )
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [
+        _c("span", {
+          staticClass: "fa fa-close",
+          attrs: { "aria-hidden": "true" }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true

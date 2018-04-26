@@ -11,9 +11,7 @@
 
         <!-- Breadcrumbs Section Start -->
         <div class="rs-breadcrumbs sec-color">
-            <div class="" style="height:150px">
-                <img src="/assets/v1/images/breadcrumbs/blog-left.jpg" alt="Breadcrubs-image"/>
-            </div>
+            <img src="/assets/v1/images/breadcrumbs/blog-left.jpg" alt="Breadcrubs-image"/>
             <div class="breadcrumbs-inner">
                 <div class="container">
                     <div class="row">
@@ -41,10 +39,20 @@
                             <div class="col-md-4 col-sm-6 col-xs-6" v-for="news in newsData">
                                 <div class="single-blog-slide">
                                     <div class="images">
-                                        <a href="blog-single.html"><img :src="news.previewImage" alt="Blog Image"></a>
+                                        <a href="#" v-if="news.previewImage">
+                                            <img :src="news.previewImage"
+                                                 style="max-height:200px; width: 100%; height:200px;"
+                                                 alt="Blog Image">
+                                        </a>
+
+                                        <a href="#" v-else>
+                                            <img src="/assets/v1/images/video-bg.jpg"
+                                                 style="max-height:200px; width: 100%; height:200px;"
+                                                 alt="Blog Image">
+                                        </a>
                                     </div>
                                     <div class="blog-details">
-                                        <span class="date"><i class="fa fa-calendar-check-o"></i>{{news.active}}</span>
+                                        <span class="date"><i class="fa fa-calendar-check-o"></i>{{news.created_at}}</span>
                                         <h3><a href="#">{{news.title}}</a></h3>
                                         <div class="read-more">
                                             <a href="#">Read More</a>
@@ -101,7 +109,7 @@
                             <div class="archives-box">
                                 <span class="title">Categories <span class="badge">new</span></span>
                                 <ul>
-                                    <li>
+                                    <li v-for="news in newsData">
                                         <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Category Title 1</a>
                                     </li>
                                     <li>
@@ -235,6 +243,7 @@
             return{
                newsData: {},
                 start:false,
+                moment:moment,
             }
         },
 
@@ -267,10 +276,13 @@
 
                     news.bodyPreview = previewDataWithoutImage.substring(0,100);
 
+
                     var metadata = JSON.parse(news.json_metadata);
                     if (metadata.image){
                         news.previewImage = metadata.image[0];
                     }
+
+                    news.created_at = this.moment(news.active).format("MMMM Do YYYY");
                 });
 
                 console.log("Guyyyyy");

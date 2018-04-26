@@ -28,7 +28,7 @@
                     <div class="header-top-left">
                         <ul>
                             <li><a href="mailto:timothy33.tf@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> timothy33.tf@gmail.com</a></li>
-                            <li><img src="images/logo/flag.jpg" alt=""><a href="#">English</a></li>
+                            <li><a href="#">English</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,7 +40,6 @@
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <sup>1</sup></a></li>
                             </ul>
                         </nav>
                     </div>

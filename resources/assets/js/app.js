@@ -12,6 +12,9 @@ window.Vue = require('vue');
 window.steem = require('steem');
 window.showdown = require('showdown');
 
+import moment from 'moment';
+Vue.prototype.moment = moment;
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

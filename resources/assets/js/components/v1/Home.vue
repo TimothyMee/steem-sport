@@ -1,105 +1,231 @@
 <template>
-    <div class="blog-area ptb-80">
-        <div id="preloader" v-if="!start"></div>
-        <div class="container" v-else="">
-            <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" v-for="news in newsData">
-                            <div class="post-row post-row-3">
-                                <div class="post-header">
-                                    <div class="header-post-img" v-if="news.previewImage">
-                                        <img :src="news.previewImage" alt="" style="width: 350px; height: 300px;"/>
-                                    </div>
-                                    <div v-else="">
 
-                                    </div>
-                                    <div class="post-meta text-center">
-                                        <div class="meta-box meta-box-left"><img src="/assets/img/admin.png" alt="responsive img"><span>By Admin</span></div>
-                                        <div class="meta-box">
-                                            <ul class="sticker-box">
-                                                <li>
-                                                    <h3 class="post-share-title">Dec 21,2017</h3></li>
-                                                <li><a href="#"><i class="fa fa-heart-o"></i>2</a></li>
-                                                <li><a href="#"><i class="fa fa-comment-o"></i>5</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-body">
-                                    <h2 class="post-heading post_h3"><a href="#" @click.prevent="openModal(news)">{{news.title}}</a></h2>
-                                    <p v-html="news.bodyPreview"></p>
-                                    <p></p>
-                                </div>
-                                <div class="post-footer">
-                                    <div class="btn-post">
-                                        <a href="#" @click.prevent="openModal(news)">Continue Reading</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <div class="sidebar">
-                        <div class="widget-area mb-60">
-                            <div class="widget-header">
-                                <h3 class="widget-title">Recent Updates</h3>
-                            </div>
-                            <div class="widget-vandor">
-                                <img src="img/sidebar/vandor.png" alt="responsive img">
-                                <h3 class="vandor-name">Nathan Dylan </h3>
-                                <p>Do not use this images for finally produc The image use. Do Not Try</p>
-                            </div>
-                        </div>
-                        <div class="widget-area mb-60">
-                            <div class="widget-header">
-                                <h3 class="widget-title">To Do</h3>
-                            </div>
-                            <ul class="liveon-list">
+    <div>
+        <div id="preloader" v-if="!start">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Breadcrumbs Section Start -->
+        <div class="rs-breadcrumbs sec-color">
+            <div class="" style="height:150px">
+                <img src="/assets/v1/images/breadcrumbs/blog-left.jpg" alt="Breadcrubs-image"/>
+            </div>
+            <div class="breadcrumbs-inner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1 class="page-title">News</h1>
+                            <ul>
                                 <li>
-                                    <h4 class="liveon-title"><a href="#">Olympic</a></h4>
-                                    <h4 class="liveon-sub-title"><a href="#">The Other Elements for Lead</a></h4>
-                                    <p>Record-breaking Usain Bolt and Michael Phelps, 11,303 athletes competing .</p>
+                                    <a class="active" href="/home">Home</a>
                                 </li>
-                                <li>
-                                    <h4 class="liveon-title"><a href="#">Rugby</a></h4>
-                                    <h4 class="liveon-sub-title"><a href="#">The Other Elements for Lead</a></h4>
-                                    <p>Record-breaking Usain Bolt and Michael Phelps, 11,303 athletes competing .</p>
-                                </li>
-                                <li>
-                                    <h4 class="liveon-title"><a href="#">Login Feature</a></h4>
-                                    <h4 class="liveon-sub-title"><a href="#">The Other Elements for Lead</a></h4>
-                                    <p>Record-breaking Usain Bolt and Michael Phelps, 11,303 athletes competing .</p>
-                                </li>
+                                <li>News</li>
                             </ul>
                         </div>
-                        <div class="widget-area mb-60">
-                            <div class="widget-header">
-                                <h3 class="widget-title">About Me</h3>
-                            </div>
-                            <div class="widget-vandor">
-                                <img src="img/sidebar/vandor.png" alt="responsive img">
-                                <h3 class="vandor-name">Timothy-Mee</h3>
-                                <p>To contribute mail to <a href="mailto:timothy33.tf@gmail.com">timothy33.tf@gmail.com</a></p>
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 text-right mt-30">
-                    <ul class="pagination pagination-1 foo">
-                        <li class="active"><a href="#">01</a></li>
-                        <li><a href="#">02</a></li>
-                        <li><a href="#">03</a></li>
-                        <li><a href="#">04</a></li>
-                        <li><a href="#">....</a></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                    </ul>
                 </div>
             </div>
         </div>
+        <!-- Breadcrumbs Section End -->
+
+        <!-- Home Blog Start Here -->
+        <div id="rs-blog" class="rs-blog sec-spacer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-ms-12">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-6" v-for="news in newsData">
+                                <div class="single-blog-slide">
+                                    <div class="images">
+                                        <a href="blog-single.html"><img :src="news.previewImage" alt="Blog Image"></a>
+                                    </div>
+                                    <div class="blog-details">
+                                        <span class="date"><i class="fa fa-calendar-check-o"></i>{{news.active}}</span>
+                                        <h3><a href="#">{{news.title}}</a></h3>
+                                        <div class="read-more">
+                                            <a href="#">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="default-pagination text-center">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-angle-left"></i>Previous</a></li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">Next<i class="fa fa-angle-right"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <!-- Blog Single Sidebar Start Here -->
+                        <div class="sidebar-area">
+                            <!--<div class="search-box">
+                                <div class="box-search">
+                                    <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
+                            </div>-->
+                            <div class="cate-box">
+                                <span class="title">Categories <span class="badge">Trending</span></span>
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Category Title 1</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Category Title 2</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Category Title 3</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Category Title 4</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Category Title 5></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="archives-box">
+                                <span class="title">Categories <span class="badge">new</span></span>
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Category Title 1</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Archives 2</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Archives 3</a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">Archives 4</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="recent-post-area">
+                                <span class="title"> Recent Post</span>
+                                <ul class="news-post">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
+                                                <div class="item-post">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none">
+                                                            <img src="images/blog-details/sm1.jpg" alt="" title="News image" />
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                            <h4><a href="blog-single.html">Raken develops The software</a></h4>
+                                                            <span class="date"><i class="fa fa-calendar" aria-hidden="true"></i> June 28, 2017</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
+                                                <div class="item-post">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none">
+                                                            <img src="images/blog-details/sm2.jpg" alt="" title="News image" />
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                            <h4><a href="blog-single.html">TRaken develops The software</a></h4>
+                                                            <span class="date"><i class="fa fa-calendar" aria-hidden="true"></i> June 28, 2017</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
+                                                <div class="item-post">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none">
+                                                            <img src="images/blog-details/sm3.jpg" alt="" title="News image" />
+                                                        </div>
+                                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                            <h4><a href="blog-single.html">Raken develops The software</a></h4>
+                                                            <span class="date"><i class="fa fa-calendar" aria-hidden="true"></i> June 28, 2017</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tag-area">
+                                <span class="title">Tags</span>
+                                <ul>
+                                    <li>
+                                        <a href="#">Ball</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Coach</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">League</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Point</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ball</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Coach</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">League</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Point</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Ball</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Coach</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Point</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="newsletter-area">
+                                <h3>Newsletter</h3>
+                                <p>Sign up for our Newsletter !</p>
+                                <div class="box-newsletter">
+                                    <input class="form-control" placeholder="youremail@domain.com" name="newsletter-term" id="newsletter-term" type="text">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Home Blog End Here -->
+
     </div>
+
 </template>
 
 <script>

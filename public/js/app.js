@@ -97269,6 +97269,132 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -97333,94 +97459,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "blog-area ptb-80" }, [
+  return _c("div", [
     !_vm.start
-      ? _c("div", { attrs: { id: "preloader" } })
-      : _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
+      ? _c("div", { attrs: { id: "preloader" } }, [
+          _c("span"),
+          _vm._v(" "),
+          _c("span"),
+          _vm._v(" "),
+          _c("span"),
+          _vm._v(" "),
+          _c("span"),
+          _vm._v(" "),
+          _c("span")
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "rs-blog sec-spacer", attrs: { id: "rs-blog" } }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-9 col-ms-12" }, [
             _c(
               "div",
-              { staticClass: "col-lg-8 col-md-8 col-sm-12 col-xs-12" },
-              [
-                _c(
+              { staticClass: "row" },
+              _vm._l(_vm.newsData, function(news) {
+                return _c(
                   "div",
-                  { staticClass: "row" },
-                  _vm._l(_vm.newsData, function(news) {
-                    return _c(
-                      "div",
-                      { staticClass: "col-lg-6 col-md-6 col-sm-6 col-xs-12" },
-                      [
-                        _c("div", { staticClass: "post-row post-row-3" }, [
-                          _c("div", { staticClass: "post-header" }, [
-                            news.previewImage
-                              ? _c("div", { staticClass: "header-post-img" }, [
-                                  _c("img", {
-                                    staticStyle: {
-                                      width: "350px",
-                                      height: "300px"
-                                    },
-                                    attrs: { src: news.previewImage, alt: "" }
-                                  })
-                                ])
-                              : _c("div"),
-                            _vm._v(" "),
-                            _vm._m(0, true)
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "post-body" }, [
-                            _c("h2", { staticClass: "post-heading post_h3" }, [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      _vm.openModal(news)
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(news.title))]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("p", {
-                              domProps: { innerHTML: _vm._s(news.bodyPreview) }
-                            }),
-                            _vm._v(" "),
-                            _c("p")
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "post-footer" }, [
-                            _c("div", { staticClass: "btn-post" }, [
-                              _c(
-                                "a",
-                                {
-                                  attrs: { href: "#" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      _vm.openModal(news)
-                                    }
-                                  }
-                                },
-                                [_vm._v("Continue Reading")]
-                              )
-                            ])
-                          ])
+                  { staticClass: "col-md-4 col-sm-6 col-xs-6" },
+                  [
+                    _c("div", { staticClass: "single-blog-slide" }, [
+                      _c("div", { staticClass: "images" }, [
+                        _c("a", { attrs: { href: "blog-single.html" } }, [
+                          _c("img", {
+                            attrs: { src: news.previewImage, alt: "Blog Image" }
+                          })
                         ])
-                      ]
-                    )
-                  })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "blog-details" }, [
+                        _c("span", { staticClass: "date" }, [
+                          _c("i", { staticClass: "fa fa-calendar-check-o" }),
+                          _vm._v(_vm._s(news.active))
+                        ]),
+                        _vm._v(" "),
+                        _c("h3", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v(_vm._s(news.title))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(1, true)
+                      ])
+                    ])
+                  ]
                 )
-              ]
+              })
             ),
             _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
             _vm._m(2)
-          ])
+          ]),
+          _vm._v(" "),
+          _vm._m(3)
         ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -97428,145 +97531,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "post-meta text-center" }, [
-      _c("div", { staticClass: "meta-box meta-box-left" }, [
+    return _c("div", { staticClass: "rs-breadcrumbs sec-color" }, [
+      _c("div", { staticStyle: { height: "150px" } }, [
         _c("img", {
-          attrs: { src: "/assets/img/admin.png", alt: "responsive img" }
-        }),
-        _c("span", [_vm._v("By Admin")])
+          attrs: {
+            src: "/assets/v1/images/breadcrumbs/blog-left.jpg",
+            alt: "Breadcrubs-image"
+          }
+        })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "meta-box" }, [
-        _c("ul", { staticClass: "sticker-box" }, [
-          _c("li", [
-            _c("h3", { staticClass: "post-share-title" }, [
-              _vm._v("Dec 21,2017")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-heart-o" }),
-              _vm._v("2")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fa fa-comment-o" }),
-              _vm._v("5")
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-12 col-xs-12" }, [
-      _c("div", { staticClass: "sidebar" }, [
-        _c("div", { staticClass: "widget-area mb-60" }, [
-          _c("div", { staticClass: "widget-header" }, [
-            _c("h3", { staticClass: "widget-title" }, [
-              _vm._v("Recent Updates")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "widget-vandor" }, [
-            _c("img", {
-              attrs: { src: "img/sidebar/vandor.png", alt: "responsive img" }
-            }),
-            _vm._v(" "),
-            _c("h3", { staticClass: "vandor-name" }, [_vm._v("Nathan Dylan ")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Do not use this images for finally produc The image use. Do Not Try"
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "widget-area mb-60" }, [
-          _c("div", { staticClass: "widget-header" }, [
-            _c("h3", { staticClass: "widget-title" }, [_vm._v("To Do")])
-          ]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "liveon-list" }, [
-            _c("li", [
-              _c("h4", { staticClass: "liveon-title" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Olympic")])
-              ]),
+      _c("div", { staticClass: "breadcrumbs-inner" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12 text-center" }, [
+              _c("h1", { staticClass: "page-title" }, [_vm._v("News")]),
               _vm._v(" "),
-              _c("h4", { staticClass: "liveon-sub-title" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("The Other Elements for Lead")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Record-breaking Usain Bolt and Michael Phelps, 11,303 athletes competing ."
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("h4", { staticClass: "liveon-title" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Rugby")])
-              ]),
-              _vm._v(" "),
-              _c("h4", { staticClass: "liveon-sub-title" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("The Other Elements for Lead")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Record-breaking Usain Bolt and Michael Phelps, 11,303 athletes competing ."
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("h4", { staticClass: "liveon-title" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Login Feature")])
-              ]),
-              _vm._v(" "),
-              _c("h4", { staticClass: "liveon-sub-title" }, [
-                _c("a", { attrs: { href: "#" } }, [
-                  _vm._v("The Other Elements for Lead")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Record-breaking Usain Bolt and Michael Phelps, 11,303 athletes competing ."
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "widget-area mb-60" }, [
-          _c("div", { staticClass: "widget-header" }, [
-            _c("h3", { staticClass: "widget-title" }, [_vm._v("About Me")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "widget-vandor" }, [
-            _c("img", {
-              attrs: { src: "img/sidebar/vandor.png", alt: "responsive img" }
-            }),
-            _vm._v(" "),
-            _c("h3", { staticClass: "vandor-name" }, [_vm._v("Timothy-Mee")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v("To contribute mail to "),
-              _c("a", { attrs: { href: "mailto:timothy33.tf@gmail.com" } }, [
-                _vm._v("timothy33.tf@gmail.com")
+              _c("ul", [
+                _c("li", [
+                  _c("a", { staticClass: "active", attrs: { href: "/home" } }, [
+                    _vm._v("Home")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [_vm._v("News")])
               ])
             ])
           ])
@@ -97578,25 +97566,381 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xs-12 text-right mt-30" }, [
-      _c("ul", { staticClass: "pagination pagination-1 foo" }, [
-        _c("li", { staticClass: "active" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("01")])
+    return _c("div", { staticClass: "read-more" }, [
+      _c("a", { attrs: { href: "#" } }, [_vm._v("Read More")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c("div", { staticClass: "default-pagination text-center" }, [
+          _c("ul", [
+            _c("li", [
+              _c("a", { attrs: { href: "#" } }, [
+                _c("i", { staticClass: "fa fa-angle-left" }),
+                _vm._v("Previous")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "active" }, [
+              _c("a", { attrs: { href: "#" } }, [_vm._v("1")])
+            ]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("2")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("3")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("4")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("5")])]),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v("Next"),
+                _c("i", { staticClass: "fa fa-angle-right" })
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 col-sm-12" }, [
+      _c("div", { staticClass: "sidebar-area" }, [
+        _c("div", { staticClass: "cate-box" }, [
+          _c("span", { staticClass: "title" }, [
+            _vm._v("Categories "),
+            _c("span", { staticClass: "badge" }, [_vm._v("Trending")])
+          ]),
+          _vm._v(" "),
+          _c("ul", [
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 1")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 2")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 3")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 4")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 5>")])
+            ])
+          ])
         ]),
         _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("02")])]),
+        _c("div", { staticClass: "archives-box" }, [
+          _c("span", { staticClass: "title" }, [
+            _vm._v("Categories "),
+            _c("span", { staticClass: "badge" }, [_vm._v("new")])
+          ]),
+          _vm._v(" "),
+          _c("ul", [
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 1")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Archives 2")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Archives 3")])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("i", {
+                staticClass: "fa fa-angle-right",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("Archives 4")])
+            ])
+          ])
+        ]),
         _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("03")])]),
+        _c("div", { staticClass: "recent-post-area" }, [
+          _c("span", { staticClass: "title" }, [_vm._v(" Recent Post")]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "news-post" }, [
+            _c("li", [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
+                  },
+                  [
+                    _c("div", { staticClass: "item-post" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "images/blog-details/sm1.jpg",
+                                alt: "",
+                                title: "News image"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                          },
+                          [
+                            _c("h4", [
+                              _c("a", { attrs: { href: "blog-single.html" } }, [
+                                _vm._v("Raken develops The software")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "date" }, [
+                              _c("i", {
+                                staticClass: "fa fa-calendar",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" June 28, 2017")
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
+                  },
+                  [
+                    _c("div", { staticClass: "item-post" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "images/blog-details/sm2.jpg",
+                                alt: "",
+                                title: "News image"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                          },
+                          [
+                            _c("h4", [
+                              _c("a", { attrs: { href: "blog-single.html" } }, [
+                                _vm._v("TRaken develops The software")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "date" }, [
+                              _c("i", {
+                                staticClass: "fa fa-calendar",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" June 28, 2017")
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
+                  },
+                  [
+                    _c("div", { staticClass: "item-post" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: "images/blog-details/sm3.jpg",
+                                alt: "",
+                                title: "News image"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                          },
+                          [
+                            _c("h4", [
+                              _c("a", { attrs: { href: "blog-single.html" } }, [
+                                _vm._v("Raken develops The software")
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "date" }, [
+                              _c("i", {
+                                staticClass: "fa fa-calendar",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" June 28, 2017")
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]),
         _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("04")])]),
+        _c("div", { staticClass: "tag-area" }, [
+          _c("span", { staticClass: "title" }, [_vm._v("Tags")]),
+          _vm._v(" "),
+          _c("ul", [
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Ball")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Coach")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("League")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Point")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Ball")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Coach")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("League")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Point")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Ball")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Coach")])]),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Point")])])
+          ])
+        ]),
         _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("....")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("10")])]),
-        _vm._v(" "),
-        _c("li", [
-          _c("a", { attrs: { href: "#" } }, [
-            _c("i", { staticClass: "fa fa-angle-right" })
+        _c("div", { staticClass: "newsletter-area" }, [
+          _c("h3", [_vm._v("Newsletter")]),
+          _vm._v(" "),
+          _c("p", [_vm._v("Sign up for our Newsletter !")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-newsletter" }, [
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                placeholder: "youremail@domain.com",
+                name: "newsletter-term",
+                id: "newsletter-term",
+                type: "text"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "btn btn-default", attrs: { type: "submit" } },
+              [
+                _c("i", {
+                  staticClass: "fa fa-arrow-right",
+                  attrs: { "aria-hidden": "true" }
+                })
+              ]
+            )
           ])
         ])
       ])

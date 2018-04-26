@@ -5,6 +5,25 @@ a sport application on steemit
 
 - This project is being actively developed. We'll be shipping several features in the coming days and i will be updating the readme.
 
+## Installation and Usage
+> After cloning the repository,
+
+- cd into directory
+- Run "Composer update" in command line
+- Copy .env.example to a new file .env
+- Edit database configuration in .env, change
+
+DB_DATABASE=
+
+DB_USERNAME=
+
+DB_PASSWORD=
+
+- Run php artisan migrate 
+
+#### Usage
+Run "php artisan serve" to run on the default port 8000 or "php artisan serve --port=*** " to run on your preferred port.
+
 ## How to contribute?
 To contribute,
 

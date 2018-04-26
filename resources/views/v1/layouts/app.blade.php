@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     @include('v1.layouts.styles')
 </head>
-<body data-spy="scroll" data    -target="#scroll-menu" data-offset="100">
+<body data-spy="scroll" data-target="#scroll-menu" data-offset="100">
 <div id="preloader"></div>
 <header>
     <!-- .header-area-start -->

@@ -18,5 +18,9 @@
         "lodash": "^4.17.4",
         "popper.js": "^1.12",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "showdown": "^1.8.6",
+        "steem": "^0.7.1"
     }
 }

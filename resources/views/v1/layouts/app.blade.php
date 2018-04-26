@@ -51,7 +51,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2 col-sm-12 col-xs-12 logo">
-                    <a href="index.html"><img src="images/logo.png" alt="logo"></a>
+                    <a href="index.html"><img src="images/logo.png" alt="logo">Steem-Sports</a>
                 </div>
                 <div class="col-md-10 col-sm-12 col-xs-12 mobile-menu">
                     <div class="main-menu">

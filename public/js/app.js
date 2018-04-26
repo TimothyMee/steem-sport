@@ -97375,48 +97375,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             newsData: {},
             start: false,
-            moment: moment
+            pagination: 1
         };
     },
     mounted: function mounted() {
@@ -97427,7 +97392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getData: function getData() {
-            steem.api.getDiscussionsByCreated({ "tag": "sport", "limit": "10" }, function (err, result) {
+            steem.api.getDiscussionsByCreated({ "tag": "sport", "limit": "50" }, function (err, result) {
 
                 if (result) {
                     this.arrangeData(result);
@@ -97436,24 +97401,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         arrangeData: function arrangeData(newsData) {
 
+            var i = 1;
+            var currentNewsData = [];
             newsData.forEach(function (news) {
                 var converter = new showdown.Converter();
                 news.newBody = converter.makeHtml(news.body);
-
-                var bodyPreview = news.newBody.substring(0, 200);
-
-                var imageLink = bodyPreview.indexOf('<p');
-                var imageLinkEnd = imageLink + bodyPreview.substring(imageLink).indexOf("</p>");
-                var previewDataWithoutImage = bodyPreview.slice(imageLink, imageLinkEnd + 1);
-
-                news.bodyPreview = previewDataWithoutImage.substring(0, 100);
 
                 var metadata = JSON.parse(news.json_metadata);
                 if (metadata.image) {
                     news.previewImage = metadata.image[0];
                 }
 
-                news.created_at = this.moment(news.active).format("MMMM Do YYYY");
+                if (metadata.tags) {
+                    news.tag = metadata.tags[0];
+                } else {
+                    news.tag = "steem-sports";
+                }
+
+                if (i <= 10) {
+                    news.page = 1;
+                } else if (i > 10 && i <= 20) {
+                    news.page = 2;
+                } else if (i > 20 && i <= 30) {
+                    news.page = 3;
+                } else if (i > 30 && i <= 40) {
+                    news.page = 4;
+                } else if (i > 40) {
+                    news.page = 5;
+                }
+
+                i++;
             });
 
             console.log("Guyyyyy");
@@ -97463,8 +97440,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.start = true;
         },
-        openModal: function openModal(news) {
-            console.log("news = ", news);
+        paginate: function paginate(page) {
+            this.pagination = page;
         }
     }
 });
@@ -97506,98 +97483,392 @@ var render = function() {
                   "div",
                   { staticClass: "col-md-4 col-sm-6 col-xs-6" },
                   [
-                    _c("div", { staticClass: "single-blog-slide" }, [
-                      _c("div", { staticClass: "images" }, [
-                        news.previewImage
-                          ? _c("a", { attrs: { href: "#" } }, [
-                              _c("img", {
-                                staticStyle: {
-                                  "max-height": "200px",
-                                  width: "100%",
-                                  height: "200px"
-                                },
-                                attrs: {
-                                  src: news.previewImage,
-                                  alt: "Blog Image"
-                                }
-                              })
-                            ])
-                          : _c("a", { attrs: { href: "#" } }, [
-                              _c("img", {
-                                staticStyle: {
-                                  "max-height": "200px",
-                                  width: "100%",
-                                  height: "200px"
-                                },
-                                attrs: {
-                                  src: "/assets/v1/images/video-bg.jpg",
-                                  alt: "Blog Image"
-                                }
-                              })
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "blog-details" }, [
-                        _c("span", { staticClass: "date" }, [
-                          _c("i", { staticClass: "fa fa-calendar-check-o" }),
-                          _vm._v(_vm._s(news.created_at))
-                        ]),
-                        _vm._v(" "),
-                        _c("h3", [
-                          _c("a", { attrs: { href: "#" } }, [
-                            _vm._v(_vm._s(news.title))
+                    news.page == _vm.pagination
+                      ? _c("div", { staticClass: "single-blog-slide" }, [
+                          _c("div", { staticClass: "images" }, [
+                            news.previewImage
+                              ? _c("a", { attrs: { href: "#" } }, [
+                                  _c("img", {
+                                    staticStyle: {
+                                      "max-height": "200px",
+                                      width: "100%",
+                                      height: "200px"
+                                    },
+                                    attrs: {
+                                      src: news.previewImage,
+                                      alt: "Blog Image"
+                                    }
+                                  })
+                                ])
+                              : _c("a", { attrs: { href: "#" } }, [
+                                  _c("img", {
+                                    staticStyle: {
+                                      "max-height": "200px",
+                                      width: "100%",
+                                      height: "200px"
+                                    },
+                                    attrs: {
+                                      src: "/assets/v1/images/video-bg.jpg",
+                                      alt: "Blog Image"
+                                    }
+                                  })
+                                ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "blog-details" }, [
+                            _c("span", { staticClass: "date" }, [
+                              _c("i", {
+                                staticClass: "fa fa-calendar-check-o"
+                              }),
+                              _vm._v(
+                                _vm._s(
+                                  _vm
+                                    .moment(news.created)
+                                    .format("MMMM Do YYYY")
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("h3", [
+                              _c("a", { attrs: { href: "#" } }, [
+                                _vm._v(_vm._s(news.title))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(1, true)
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(1, true)
-                      ])
-                    ])
+                        ])
+                      : _vm._e()
                   ]
                 )
               })
             ),
             _vm._v(" "),
-            _vm._m(2)
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-12" }, [
+                _c("div", { staticClass: "default-pagination text-center" }, [
+                  _c("ul", [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("li", {}, [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.paginate(1)
+                            }
+                          }
+                        },
+                        [_vm._v("1")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.paginate(2)
+                            }
+                          }
+                        },
+                        [_vm._v("2")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.paginate(3)
+                            }
+                          }
+                        },
+                        [_vm._v("3")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.paginate(4)
+                            }
+                          }
+                        },
+                        [_vm._v("4")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.paginate(5)
+                            }
+                          }
+                        },
+                        [_vm._v("5")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(3)
+                  ])
+                ])
+              ])
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3 col-sm-12" }, [
             _c("div", { staticClass: "sidebar-area" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "archives-box" }, [
+              _c("div", { staticClass: "cate-box" }, [
                 _vm._m(4),
                 _vm._v(" "),
                 _c(
                   "ul",
-                  [
-                    _vm._l(_vm.newsData, function(news) {
-                      return _c("li", [
-                        _c("i", {
-                          staticClass: "fa fa-angle-right",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v("Category Title 1")
+                  _vm._l(_vm.newsData, function(index, news) {
+                    return index < 12
+                      ? _c("li", [
+                          _c("i", {
+                            staticClass: "fa fa-angle-right",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v(_vm._s(news.category))
+                          ])
                         ])
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7)
-                  ],
-                  2
+                      : _vm._e()
+                  })
                 )
               ]),
               _vm._v(" "),
-              _vm._m(8),
+              _c("div", { staticClass: "recent-post-area" }, [
+                _c("span", { staticClass: "title" }, [_vm._v(" Recent Post")]),
+                _vm._v(" "),
+                _c("ul", { staticClass: "news-post" }, [
+                  _c("li", [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
+                        },
+                        [
+                          _c("div", { staticClass: "item-post" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src: _vm.newsData[20].previewImage,
+                                      alt: "",
+                                      title: "News image"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                                },
+                                [
+                                  _c("h4", [
+                                    _c("a", { attrs: { href: "#" } }, [
+                                      _vm._v(_vm._s(_vm.newsData[20].title))
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "date" }, [
+                                    _c("i", {
+                                      staticClass: "fa fa-calendar",
+                                      attrs: { "aria-hidden": "true" }
+                                    }),
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm
+                                          .moment(_vm.newsData[20].created)
+                                          .format("MMMM Do YYYY")
+                                      )
+                                    )
+                                  ])
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
+                        },
+                        [
+                          _c("div", { staticClass: "item-post" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src: _vm.newsData[40].previewImage,
+                                      alt: "",
+                                      title: "News image"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                                },
+                                [
+                                  _c("h4", [
+                                    _c("a", { attrs: { href: "#" } }, [
+                                      _vm._v(_vm._s(_vm.newsData[40].title))
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "date" }, [
+                                    _c("i", {
+                                      staticClass: "fa fa-calendar",
+                                      attrs: { "aria-hidden": "true" }
+                                    }),
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm
+                                          .moment(_vm.newsData[40].created)
+                                          .format("MMMM Do YYYY")
+                                      )
+                                    )
+                                  ])
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
+                        },
+                        [
+                          _c("div", { staticClass: "item-post" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src: _vm.newsData[49].previewImage,
+                                      alt: "",
+                                      title: "News image"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "col-lg-8 col-md-8 col-sm-8 col-xs-8"
+                                },
+                                [
+                                  _c("h4", [
+                                    _c("a", { attrs: { href: "#" } }, [
+                                      _vm._v(_vm._s(_vm.newsData[49].title))
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "date" }, [
+                                    _c("i", {
+                                      staticClass: "fa fa-calendar",
+                                      attrs: { "aria-hidden": "true" }
+                                    }),
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm
+                                          .moment(_vm.newsData[49].created)
+                                          .format("MMMM Do YYYY")
+                                      ) + "}"
+                                    )
+                                  ])
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ]),
               _vm._v(" "),
-              _vm._m(9),
+              _c("div", { staticClass: "tag-area" }, [
+                _c("span", { staticClass: "title" }, [_vm._v("Tags")]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  _vm._l(_vm.newsData, function(index, news) {
+                    return index < 10
+                      ? _c("li", [
+                          _c("a", { attrs: { href: "#" } }, [
+                            _vm._v(_vm._s(news.tag))
+                          ])
+                        ])
+                      : _vm._e()
+                  })
+                )
+              ]),
               _vm._v(" "),
-              _vm._m(10)
+              _vm._m(5)
             ])
           ])
         ])
@@ -97651,37 +97922,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-12" }, [
-        _c("div", { staticClass: "default-pagination text-center" }, [
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-angle-left" }),
-                _vm._v("Previous")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "active" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("1")])
-            ]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("2")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("3")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("4")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("5")])]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Next"),
-                _c("i", { staticClass: "fa fa-angle-right" })
-              ])
-            ])
-          ])
-        ])
+    return _c("li", [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-angle-left" }),
+        _vm._v("Previous")
       ])
     ])
   },
@@ -97689,57 +97933,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "cate-box" }, [
-      _c("span", { staticClass: "title" }, [
-        _vm._v("Categories "),
-        _c("span", { staticClass: "badge" }, [_vm._v("Trending")])
-      ]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _c("i", {
-            staticClass: "fa fa-angle-right",
-            attrs: { "aria-hidden": "true" }
-          }),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 1")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("i", {
-            staticClass: "fa fa-angle-right",
-            attrs: { "aria-hidden": "true" }
-          }),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 2")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("i", {
-            staticClass: "fa fa-angle-right",
-            attrs: { "aria-hidden": "true" }
-          }),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 3")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("i", {
-            staticClass: "fa fa-angle-right",
-            attrs: { "aria-hidden": "true" }
-          }),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 4")])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("i", {
-            staticClass: "fa fa-angle-right",
-            attrs: { "aria-hidden": "true" }
-          }),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v("Category Title 5>")])
-        ])
+    return _c("li", [
+      _c("a", { attrs: { href: "#" } }, [
+        _vm._v("Next"),
+        _c("i", { staticClass: "fa fa-angle-right" })
       ])
     ])
   },
@@ -97750,246 +97947,6 @@ var staticRenderFns = [
     return _c("span", { staticClass: "title" }, [
       _vm._v("Categories "),
       _c("span", { staticClass: "badge" }, [_vm._v("new")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", {
-        staticClass: "fa fa-angle-right",
-        attrs: { "aria-hidden": "true" }
-      }),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Archives 2")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", {
-        staticClass: "fa fa-angle-right",
-        attrs: { "aria-hidden": "true" }
-      }),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Archives 3")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("i", {
-        staticClass: "fa fa-angle-right",
-        attrs: { "aria-hidden": "true" }
-      }),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "#" } }, [_vm._v("Archives 4")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "recent-post-area" }, [
-      _c("span", { staticClass: "title" }, [_vm._v(" Recent Post")]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "news-post" }, [
-        _c("li", [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
-                staticClass: "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
-              },
-              [
-                _c("div", { staticClass: "item-post" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
-                      },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: "images/blog-details/sm1.jpg",
-                            alt: "",
-                            title: "News image"
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-lg-8 col-md-8 col-sm-8 col-xs-8" },
-                      [
-                        _c("h4", [
-                          _c("a", { attrs: { href: "blog-single.html" } }, [
-                            _vm._v("Raken develops The software")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "date" }, [
-                          _c("i", {
-                            staticClass: "fa fa-calendar",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" June 28, 2017")
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
-                staticClass: "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
-              },
-              [
-                _c("div", { staticClass: "item-post" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
-                      },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: "images/blog-details/sm2.jpg",
-                            alt: "",
-                            title: "News image"
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-lg-8 col-md-8 col-sm-8 col-xs-8" },
-                      [
-                        _c("h4", [
-                          _c("a", { attrs: { href: "blog-single.html" } }, [
-                            _vm._v("TRaken develops The software")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "date" }, [
-                          _c("i", {
-                            staticClass: "fa fa-calendar",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" June 28, 2017")
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              {
-                staticClass: "col-lg-12 col-md-12 col-sm-12 col-xs-12 content"
-              },
-              [
-                _c("div", { staticClass: "item-post" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "col-lg-4 col-md-4 col-sm-4 col-xs-4 paddimg-right-none"
-                      },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: "images/blog-details/sm3.jpg",
-                            alt: "",
-                            title: "News image"
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "col-lg-8 col-md-8 col-sm-8 col-xs-8" },
-                      [
-                        _c("h4", [
-                          _c("a", { attrs: { href: "blog-single.html" } }, [
-                            _vm._v("Raken develops The software")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "date" }, [
-                          _c("i", {
-                            staticClass: "fa fa-calendar",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" June 28, 2017")
-                        ])
-                      ]
-                    )
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "tag-area" }, [
-      _c("span", { staticClass: "title" }, [_vm._v("Tags")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Ball")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Coach")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("League")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Point")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Ball")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Coach")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("League")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Point")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Ball")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Coach")])]),
-        _vm._v(" "),
-        _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Point")])])
-      ])
     ])
   },
   function() {

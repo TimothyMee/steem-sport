@@ -1,6 +1,7 @@
 <template>
 
     <div>
+        <notifications />
         <div class="header-middle-area menu-sticky">
             <div class="container">
                 <div class="row">
@@ -92,7 +93,15 @@
                                             <i class="fa fa-calendar-check-o"></i>
                                             {{moment(news.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
 
-                                            <a href="#" v-if="login"><i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;</a>
+                                            <a href="#" v-if="login && news.userHasVoted">
+                                                <i class="fa fa-heart" style="color:red;"></i> {{news.active_votes.length}} &nbsp;&nbsp;
+                                            </a>
+
+                                            <a href="#" v-if="login && !news.userHasVoted" @click.prevent="upvote(news)">
+                                                <i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp; 
+                                                <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:10%"></i>
+                                            </a>
+
                                             <a href="#" v-if="login"><i class="fa fa-comment"></i> {{news.replies.length}}</a>
 
                                             <span v-if="!login"><i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;</span>
@@ -283,7 +292,8 @@
                 homeRoute:'/home',
                 api:{},
                 login:false,
-                user:{}
+                user:{},
+                loading:false,
             }
         },
 
@@ -339,8 +349,16 @@
                         news.page = 5
                     }
 
+                    if(this.login){
+                        news.active_votes.forEach(function(votes){
+                            if(votes.voter == this.user.username){
+                                news.userHasVoted = true;
+                            }
+                        }.bind(this))
+                    }
+
                     i++;
-                });
+                }.bind(this));
 
                 console.log("Guyyyyy");
                 console.log(newsData);
@@ -402,9 +420,32 @@
                 var accessToken = localStorage.getItem('accessToken');
 
                 if (accessToken){
+                    this.api = sc2.Initialize({
+                        app: 'steem-sports.app',
+                        callbackURL: 'http://localhost:8000/home',
+                        accessToken: accessToken,
+                        scope: ['vote', 'comment']
+                    });
+
                     this.login = true;
+                    this.getData();
                 }
-            }
+            },
+
+            upvote(news){
+                this.loading = true;
+                this.api.vote(this.user.username, news.author, news.permlink, 1000, function (err, res) {
+                    if(err){
+                        this.$notify({type: 'error', text: '<span style="color: white">Couldn\'t Upvote now, <br> Try again later </span>', speed:400});
+                    }
+                    if(res){
+                        this.loading = false;
+                        this.$notify({type: 'success', text: 'successfully upvoted', speed:400});
+                        news.userHasVoted = true;
+                        console.log(res);
+                    }
+                }.bind(this));
+            },
         }
     }
 </script>

@@ -14,6 +14,9 @@ window.showdown = require('showdown');
 window.sc2 = require('sc2-sdk');
 
 import moment from 'moment';
+import Notifications from 'vue-notification'
+
+Vue.use(Notifications);
 Vue.prototype.moment = moment;
 
 

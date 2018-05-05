@@ -434,7 +434,7 @@
 
             upvote(news){
                 this.loading = true;
-                this.api.vote(this.user.username, news.author, news.permlink, 1000, function (err, res) {
+                this.api.vote(this.user.username, news.author, news.permlink, 10000, function (err, res) {
                     if(err){
                         this.$notify({type: 'error', text: '<span style="color: white">Couldn\'t Upvote now, <br> Try again later </span>', speed:400});
                     }

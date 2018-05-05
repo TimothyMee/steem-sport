@@ -11,6 +11,7 @@ window.Vue = require('vue');
 
 window.steem = require('steem');
 window.showdown = require('showdown');
+window.sc2 = require('sc2-sdk');
 
 import moment from 'moment';
 Vue.prototype.moment = moment;

@@ -47,39 +47,6 @@
             </div>
         </div>
     </div>
-    <div class="header-middle-area menu-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 col-sm-12 col-xs-12 logo">
-                    <a href="{{route('home')}}">{{--<img src="images/logo.png" alt="logo">--}}
-                        <h5 style="color: #fbc02d">Steem-Sports</h5>
-                    </a>
-                </div>
-                <div class="col-md-10 col-sm-12 col-xs-12 mobile-menu">
-                    <div class="main-menu">
-                        <a class="rs-menu-toggle"><i class="fa fa-bars"></i>Menu</a>
-                        <nav class="rs-menu">
-                            <ul class="nav-menu">
-                                <!-- Home -->
-                                <li>
-                                    <a href="{{route('home')}}">Home</a>
-                                </li>
-                                <!-- End Home -->
-                                <li><a href="#">About</a></li>
-                                <li class="log"><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-                                <li class="sign"><a href="https://signup.steemit.com/"><span>/</span> Sign Up</a></li>
-                            </ul>
-                        </nav>
-                        <!--Header Search Start  here-->
-                   {{-- <div class="search">
-                        <a class="rs-search" data-target="#search-modal" data-toggle="modal" href="#"><i class="fa fa-search"></i></a>
-                    </div>--}}
-                    <!--Header Search End  here-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </header>
 <!--Header area end here-->
 

@@ -1,6 +1,41 @@
 <template>
 
     <div>
+        <div class="header-middle-area menu-sticky">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12 col-xs-12 logo">
+                        <a :href=homeRoute><!--<img src="images/logo.png" alt="logo">-->
+                            <h5 style="color: #fbc02d">Steem-Sports</h5>
+                        </a>
+                    </div>
+                    <div class="col-md-10 col-sm-12 col-xs-12 mobile-menu">
+                        <div class="main-menu">
+                            <a class="rs-menu-toggle"><i class="fa fa-bars"></i>Menu</a>
+                            <nav class="rs-menu">
+                                <ul class="nav-menu">
+                                    <!-- Home -->
+                                    <li>
+                                        <a :href=homeRoute>Home</a>
+                                    </li>
+                                    <!-- End Home -->
+                                    <li><a href="#">About</a></li>
+                                    <li class="log" v-if="!login"><a href="#" @click="steemConnectLogin"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+                                    <li class="sign" v-if="!login"><a href="https://signup.steemit.com/"><span>/</span> Sign Up</a></li>
+                                    <li class="sign" v-if="login"><a href="https://signup.steemit.com/">{{user.username}}</a></li>
+                                </ul>
+                            </nav>
+                            <!--Header Search Start  here-->
+                            <!--<div class="search">
+                                <a class="rs-search" data-target="#search-modal" data-toggle="modal" href="#"><i class="fa fa-search"></i></a>
+                            </div>-->
+                            <!--Header Search End  here-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="preloader" v-if="!start">
             <span></span>
             <span></span>
@@ -56,8 +91,13 @@
                                         <span class="date">
                                             <i class="fa fa-calendar-check-o"></i>
                                             {{moment(news.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
-                                            <i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;
-                                            <i class="fa fa-comment"></i> {{news.replies.length}}
+
+                                            <a href="#" v-if="login"><i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;</a>
+                                            <a href="#" v-if="login"><i class="fa fa-comment"></i> {{news.replies.length}}</a>
+
+                                            <span v-if="!login"><i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;</span>
+                                            <span v-if="!login"><i class="fa fa-comment" v-if="!login"></i> {{news.replies.length}}</span>
+
                                         </span>
                                         <h3><a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal">{{news.title}}</a></h3>
                                         <div class="read-more">
@@ -215,8 +255,8 @@
 
                     <i class="fa fa-calendar-check-o"></i>
                     {{moment(currentNews.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
-                    <i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;
-                    <i class="fa fa-comment"></i> {{currentNews.comments.length}}
+                    <a href="#"><i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;</a>
+                    <a href="#"><i class="fa fa-comment"></i> {{currentNews.comments.length}}</a>
                 </div>
             </div>
         </div>
@@ -240,12 +280,17 @@
                    comments : 0,
                    created_at : 0
                 },
+                homeRoute:'/home',
+                api:{},
+                login:false,
+                user:{}
             }
         },
 
         mounted() {
             console.log('Component mounted.');
             this.getData();
+            this.getUserExistingData();
         },
 
         methods:{
@@ -314,6 +359,51 @@
                 this.currentNews.upvotes = news.active_votes;
                 this.currentNews.comments = news.replies;
                 this.currentNews.created_at = news.created;
+            },
+
+            steemConnectLogin(){
+                this.api = sc2.Initialize({
+                    app: 'steem-sports.app',
+                    callbackURL: 'http://localhost:8000/home',
+                    accessToken: 'access_token',
+                    scope: ['vote', 'comment']
+                });
+
+                var link = this.api.getLoginURL();
+                window.location = link;
+
+                this.SteemConnectAccessToken();
+            },
+
+            SteemConnectAccessToken(){
+
+                var url = window.location.href;
+
+                url = new URL(url);
+                var accessToken = url.searchParams.get("access_token");
+                var userName = url.searchParams.get("username");
+
+                if (accessToken){
+                    localStorage.setItem('username', userName);
+                    localStorage.setItem('accessToken', accessToken);
+
+                    this.api = sc2.Initialize({
+                        app: 'steem-sports.app',
+                        callbackURL: 'http://localhost:8000/home',
+                        accessToken: accessToken,
+                        scope: ['vote', 'comment']
+                    });
+                }
+            },
+
+            getUserExistingData(){
+
+                this.user.username = localStorage.getItem('username');
+                var accessToken = localStorage.getItem('accessToken');
+
+                if (accessToken){
+                    this.login = true;
+                }
             }
         }
     }

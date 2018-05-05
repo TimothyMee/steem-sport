@@ -59947,6 +59947,7 @@ window.Vue = __webpack_require__(279);
 
 window.steem = __webpack_require__(281);
 window.showdown = __webpack_require__(464);
+window.sc2 = __webpack_require__(475);
 
 
 Vue.prototype.moment = __WEBPACK_IMPORTED_MODULE_0_moment___default.a;
@@ -118537,6 +118538,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -118549,12 +118590,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 upvotes: 0,
                 comments: 0,
                 created_at: 0
-            }
+            },
+            homeRoute: '/home',
+            api: {},
+            login: false,
+            user: {}
         };
     },
     mounted: function mounted() {
         console.log('Component mounted.');
         this.getData();
+        this.getUserExistingData();
     },
 
 
@@ -118616,6 +118662,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentNews.upvotes = news.active_votes;
             this.currentNews.comments = news.replies;
             this.currentNews.created_at = news.created;
+        },
+        steemConnectLogin: function steemConnectLogin() {
+            this.api = sc2.Initialize({
+                app: 'steem-sports.app',
+                callbackURL: 'http://localhost:8000/home',
+                accessToken: 'access_token',
+                scope: ['vote', 'comment']
+            });
+
+            var link = this.api.getLoginURL();
+            window.location = link;
+
+            this.SteemConnectAccessToken();
+        },
+        SteemConnectAccessToken: function SteemConnectAccessToken() {
+
+            var url = window.location.href;
+
+            url = new URL(url);
+            var accessToken = url.searchParams.get("access_token");
+            var userName = url.searchParams.get("username");
+
+            if (accessToken) {
+                localStorage.setItem('username', userName);
+                localStorage.setItem('accessToken', accessToken);
+
+                this.api = sc2.Initialize({
+                    app: 'steem-sports.app',
+                    callbackURL: 'http://localhost:8000/home',
+                    accessToken: accessToken,
+                    scope: ['vote', 'comment']
+                });
+            }
+        },
+        getUserExistingData: function getUserExistingData() {
+
+            this.user.username = localStorage.getItem('username');
+            var accessToken = localStorage.getItem('accessToken');
+
+            if (accessToken) {
+                this.login = true;
+            }
         }
     }
 });
@@ -118629,6 +118717,75 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "header-middle-area menu-sticky" }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-2 col-sm-12 col-xs-12 logo" }, [
+            _c("a", { attrs: { href: _vm.homeRoute } }, [
+              _c("h5", { staticStyle: { color: "#fbc02d" } }, [
+                _vm._v("Steem-Sports")
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-md-10 col-sm-12 col-xs-12 mobile-menu" },
+            [
+              _c("div", { staticClass: "main-menu" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("nav", { staticClass: "rs-menu" }, [
+                  _c("ul", { staticClass: "nav-menu" }, [
+                    _c("li", [
+                      _c("a", { attrs: { href: _vm.homeRoute } }, [
+                        _vm._v("Home")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    !_vm.login
+                      ? _c("li", { staticClass: "log" }, [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: { click: _vm.steemConnectLogin }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-sign-in",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" Login")
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.login
+                      ? _c("li", { staticClass: "sign" }, [_vm._m(2)])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.login
+                      ? _c("li", { staticClass: "sign" }, [
+                          _c(
+                            "a",
+                            { attrs: { href: "https://signup.steemit.com/" } },
+                            [_vm._v(_vm._s(_vm.user.username))]
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                ])
+              ])
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
     !_vm.start
       ? _c("div", { attrs: { id: "preloader" } }, [
           _c("span"),
@@ -118658,7 +118815,7 @@ var render = function() {
               _c("h1", { staticClass: "page-title" }, [_vm._v("News")]),
               _vm._v(" "),
               _c("ul", [
-                _vm._m(0),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("li", [_vm._v("News")]),
                 _vm._v(" "),
@@ -118758,20 +118915,47 @@ var render = function() {
                                       .moment(news.created)
                                       .format("MMMM Do YYYY")
                                   ) +
-                                  "   \n                                            "
+                                  "   \n\n                                            "
                               ),
-                              _c("i", { staticClass: "fa fa-heart" }),
-                              _vm._v(
-                                " " +
-                                  _vm._s(news.active_votes.length) +
-                                  "   \n                                            "
-                              ),
-                              _c("i", { staticClass: "fa fa-comment" }),
-                              _vm._v(
-                                " " +
-                                  _vm._s(news.replies.length) +
-                                  "\n                                        "
-                              )
+                              _vm.login
+                                ? _c("a", { attrs: { href: "#" } }, [
+                                    _c("i", { staticClass: "fa fa-heart" }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(news.active_votes.length) +
+                                        "   "
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.login
+                                ? _c("a", { attrs: { href: "#" } }, [
+                                    _c("i", { staticClass: "fa fa-comment" }),
+                                    _vm._v(" " + _vm._s(news.replies.length))
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !_vm.login
+                                ? _c("span", [
+                                    _c("i", { staticClass: "fa fa-heart" }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(news.active_votes.length) +
+                                        "   "
+                                    )
+                                  ])
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !_vm.login
+                                ? _c("span", [
+                                    !_vm.login
+                                      ? _c("i", {
+                                          staticClass: "fa fa-comment"
+                                        })
+                                      : _vm._e(),
+                                    _vm._v(" " + _vm._s(news.replies.length))
+                                  ])
+                                : _vm._e()
                             ]),
                             _vm._v(" "),
                             _c("h3", [
@@ -118825,7 +119009,7 @@ var render = function() {
               _c("div", { staticClass: "col-sm-12" }, [
                 _c("div", { staticClass: "default-pagination text-center" }, [
                   _c("ul", [
-                    _vm._m(1),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("li", {}, [
                       _c(
@@ -118902,7 +119086,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _vm._m(5)
                   ])
                 ])
               ])
@@ -118912,7 +119096,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-3 col-sm-12" }, [
             _c("div", { staticClass: "sidebar-area" }, [
               _c("div", { staticClass: "cate-box" }, [
-                _vm._m(3),
+                _vm._m(6),
                 _vm._v(" "),
                 _c(
                   "ul",
@@ -119145,7 +119329,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(7)
             ])
           ])
         ])
@@ -119164,7 +119348,7 @@ var render = function() {
         }
       },
       [
-        _vm._m(5),
+        _vm._m(8),
         _vm._v(" "),
         _c(
           "div",
@@ -119190,18 +119374,15 @@ var render = function() {
                     ) +
                     "   \n                    "
                 ),
-                _c("i", { staticClass: "fa fa-heart" }),
-                _vm._v(
-                  " " +
-                    _vm._s(_vm.currentNews.upvotes.length) +
-                    "   \n                    "
-                ),
-                _c("i", { staticClass: "fa fa-comment" }),
-                _vm._v(
-                  " " +
-                    _vm._s(_vm.currentNews.comments.length) +
-                    "\n                "
-                )
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "fa fa-heart" }),
+                  _vm._v(" " + _vm._s(_vm.currentNews.upvotes.length) + "   ")
+                ]),
+                _vm._v(" "),
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("i", { staticClass: "fa fa-comment" }),
+                  _vm._v(" " + _vm._s(_vm.currentNews.comments.length))
+                ])
               ]
             )
           ]
@@ -119211,6 +119392,30 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "rs-menu-toggle" }, [
+      _c("i", { staticClass: "fa fa-bars" }),
+      _vm._v("Menu")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("About")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { attrs: { href: "https://signup.steemit.com/" } }, [
+      _c("span", [_vm._v("/")]),
+      _vm._v(" Sign Up")
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -119322,6 +119527,255 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 471 */,
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var fetch = __webpack_require__(313);
+
+var SDKError = function (_Error) {
+  _inherits(SDKError, _Error);
+
+  function SDKError(message, obj) {
+    _classCallCheck(this, SDKError);
+
+    var _this = _possibleConstructorReturn(this, (SDKError.__proto__ || Object.getPrototypeOf(SDKError)).call(this, message));
+
+    _this.name = 'SDKError';
+    _this.error = obj.error;
+    _this.error_description = obj.error_description;
+    if (typeof Error.captureStackTrace === 'function') {
+      Error.captureStackTrace(_this, _this.constructor);
+    } else {
+      _this.stack = new Error(message).stack;
+    }
+    return _this;
+  }
+
+  return SDKError;
+}(Error);
+
+function SteemConnect() {
+  this.options = {
+    baseURL: 'https://v2.steemconnect.com',
+    app: '',
+    callbackURL: '',
+    scope: []
+  };
+}
+
+SteemConnect.prototype.setBaseURL = function setBaseURL(baseURL) {
+  this.options.baseURL = baseURL;
+};
+SteemConnect.prototype.setApp = function setApp(app) {
+  this.options.app = app;
+};
+SteemConnect.prototype.setCallbackURL = function setCallbackURL(callbackURL) {
+  this.options.callbackURL = callbackURL;
+};
+SteemConnect.prototype.setAccessToken = function setAccessToken(accessToken) {
+  this.options.accessToken = accessToken;
+};
+SteemConnect.prototype.removeAccessToken = function removeAccessToken() {
+  this.options.accessToken = undefined;
+};
+SteemConnect.prototype.setScope = function setScope(scope) {
+  this.options.scope = scope;
+};
+
+SteemConnect.prototype.getLoginURL = function getLoginURL(state) {
+  var loginURL = this.options.baseURL + '/oauth2/authorize?client_id=' + this.options.app + '&redirect_uri=' + encodeURIComponent(this.options.callbackURL);
+  loginURL += this.options.scope ? '&scope=' + this.options.scope.join(',') : '';
+  loginURL += state ? '&state=' + encodeURIComponent(state) : '';
+  return loginURL;
+};
+
+SteemConnect.prototype.send = function send(route, method, body, cb) {
+  var url = this.options.baseURL + '/api/' + route;
+  var promise = fetch(url, {
+    method: method,
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      Authorization: this.options.accessToken
+    },
+    body: JSON.stringify(body)
+  }).then(function (res) {
+    var json = res.json();
+    // If the status is something other than 200 we need
+    // to reject the result since the request is not considered as a fail
+    if (res.status !== 200) {
+      return json.then(function (result) {
+        return Promise.reject(new SDKError('sc2-sdk error', result));
+      });
+    }
+    return json;
+  }).then(function (res) {
+    if (res.error) {
+      return Promise.reject(new SDKError('sc2-sdk error', res));
+    }
+    return res;
+  });
+
+  if (!cb) return promise;
+
+  return promise.then(function (res) {
+    return cb(null, res);
+  }).catch(function (err) {
+    return cb(err, null);
+  });
+};
+
+SteemConnect.prototype.broadcast = function broadcast(operations, cb) {
+  return this.send('broadcast', 'POST', { operations: operations }, cb);
+};
+
+SteemConnect.prototype.me = function me(cb) {
+  return this.send('me', 'POST', {}, cb);
+};
+
+SteemConnect.prototype.vote = function vote(voter, author, permlink, weight, cb) {
+  var params = {
+    voter: voter,
+    author: author,
+    permlink: permlink,
+    weight: weight
+  };
+  return this.broadcast([['vote', params]], cb);
+};
+
+SteemConnect.prototype.comment = function comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, cb) {
+  var params = {
+    parent_author: parentAuthor,
+    parent_permlink: parentPermlink,
+    author: author,
+    permlink: permlink,
+    title: title,
+    body: body,
+    json_metadata: JSON.stringify(jsonMetadata)
+  };
+  return this.broadcast([['comment', params]], cb);
+};
+
+SteemConnect.prototype.reblog = function reblog(account, author, permlink, cb) {
+  var params = {
+    required_auths: [],
+    required_posting_auths: [account],
+    id: 'follow',
+    json: JSON.stringify(['reblog', {
+      account: account,
+      author: author,
+      permlink: permlink
+    }])
+  };
+  return this.broadcast([['custom_json', params]], cb);
+};
+
+SteemConnect.prototype.follow = function follow(follower, following, cb) {
+  var params = {
+    required_auths: [],
+    required_posting_auths: [follower],
+    id: 'follow',
+    json: JSON.stringify(['follow', { follower: follower, following: following, what: ['blog'] }])
+  };
+  return this.broadcast([['custom_json', params]], cb);
+};
+
+SteemConnect.prototype.unfollow = function unfollow(unfollower, unfollowing, cb) {
+  var params = {
+    required_auths: [],
+    required_posting_auths: [unfollower],
+    id: 'follow',
+    json: JSON.stringify(['follow', { follower: unfollower, following: unfollowing, what: [] }])
+  };
+  return this.broadcast([['custom_json', params]], cb);
+};
+
+SteemConnect.prototype.ignore = function ignore(follower, following, cb) {
+  var params = {
+    required_auths: [],
+    required_posting_auths: [follower],
+    id: 'follow',
+    json: JSON.stringify(['follow', { follower: follower, following: following, what: ['ignore'] }])
+  };
+  return this.broadcast([['custom_json', params]], cb);
+};
+
+SteemConnect.prototype.claimRewardBalance = function claimRewardBalance(account, rewardSteem, rewardSbd, rewardVests, cb) {
+  var params = {
+    account: account,
+    reward_steem: rewardSteem,
+    reward_sbd: rewardSbd,
+    reward_vests: rewardVests
+  };
+  return this.broadcast([['claim_reward_balance', params]], cb);
+};
+
+SteemConnect.prototype.revokeToken = function revokeToken(cb) {
+  var _this2 = this;
+
+  return this.send('oauth2/token/revoke', 'POST', { token: this.options.accessToken }, cb).then(function () {
+    return _this2.removeAccessToken();
+  });
+};
+
+SteemConnect.prototype.updateUserMetadata = function updateUserMetadata() {
+  var metadata = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var cb = arguments[1];
+
+  return this.send('me', 'PUT', { user_metadata: metadata }, cb);
+};
+
+SteemConnect.prototype.sign = function sign(name, params, redirectUri) {
+  if (typeof name !== 'string' || (typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') {
+    return new SDKError('sc2-sdk error', {
+      error: 'invalid_request',
+      error_description: 'Request has an invalid format'
+    });
+  }
+  var url = this.options.baseURL + '/sign/' + name + '?';
+  url += Object.keys(params).map(function (key) {
+    return key + '=' + encodeURIComponent(params[key]);
+  }).join('&');
+  url += redirectUri ? '&redirect_uri=' + encodeURIComponent(redirectUri) : '';
+  return url;
+};
+
+exports.Initialize = function Initialize(config) {
+  var instance = new SteemConnect();
+
+  if (!config) {
+    throw new Error('You have to provide config');
+  }
+
+  if ((typeof config === 'undefined' ? 'undefined' : _typeof(config)) !== 'object') {
+    throw new Error('Config must be an object');
+  }
+
+  if (config.baseURL) instance.setBaseURL(config.baseURL);
+  if (config.app) instance.setApp(config.app);
+  if (config.callbackURL) instance.setCallbackURL(config.callbackURL);
+  if (config.accessToken) instance.setAccessToken(config.accessToken);
+  if (config.scope) instance.setScope(config.scope);
+
+  return instance;
+};
 
 /***/ })
 /******/ ]);

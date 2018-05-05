@@ -53,7 +53,12 @@
                                         </a>
                                     </div>
                                     <div class="blog-details">
-                                        <span class="date"><i class="fa fa-calendar-check-o"></i>{{moment(news.created).format("MMMM Do YYYY")}}</span>
+                                        <span class="date">
+                                            <i class="fa fa-calendar-check-o"></i>
+                                            {{moment(news.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
+                                            <i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;
+                                            <i class="fa fa-comment"></i> {{news.replies.length}}
+                                        </span>
                                         <h3><a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal">{{news.title}}</a></h3>
                                         <div class="read-more">
                                             <a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal">Read More</a>
@@ -207,6 +212,11 @@
                     <p v-html="currentNews" style="color: white">
 
                     </p>
+
+                    <i class="fa fa-calendar-check-o"></i>
+                    {{moment(news.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
+                    <i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;
+                    <i class="fa fa-comment"></i> {{news.replies.length}}
                 </div>
             </div>
         </div>
@@ -235,7 +245,7 @@
 
         methods:{
             getData(){
-                steem.api.getDiscussionsByCreated({"tag":"sport", "limit": "50"}, function(err, result) {
+                steem.api.getDiscussionsByTrending({"tag":"sport", "limit": "50"}, function(err, result) {
 
                     if (result){
                         this.arrangeData(result);

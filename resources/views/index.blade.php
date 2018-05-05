@@ -132,7 +132,7 @@
                             <p>What if all your sport stories are at one point <br> on steem-sport, you can read and write sport stories</p>
                         </div>
                         <div class="cap-readmore animated bounceInUp">
-                            <a href="#">Get Involved</a>
+                            <a href="{{route('home')}}">Get Involved</a>
                         </div>
                     </div>
                 </div>

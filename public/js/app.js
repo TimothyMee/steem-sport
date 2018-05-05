@@ -118544,7 +118544,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             newsData: {},
             start: false,
             pagination: 1,
-            currentNews: 'nothing'
+            currentNews: {
+                news: 'nothing',
+                upvotes: 0,
+                comments: 0,
+                created_at: 0
+            }
         };
     },
     mounted: function mounted() {
@@ -118607,7 +118612,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.pagination = page;
         },
         openModal: function openModal(news) {
-            this.currentNews = news.newBody;
+            this.currentNews.news = news.newBody;
+            this.currentNews.upvotes = news.active_votes;
+            this.currentNews.comments = news.replies;
+            this.currentNews.created_at = news.created;
         }
     }
 });
@@ -119158,29 +119166,46 @@ var render = function() {
       [
         _vm._m(5),
         _vm._v(" "),
-        _c("div", { staticClass: "modal-dialog modal-dialog-centered" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("p", {
-              staticStyle: { color: "white" },
-              domProps: { innerHTML: _vm._s(_vm.currentNews) }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-calendar-check-o" }),
-            _vm._v(
-              "\n                    " +
-                _vm._s(_vm.moment(_vm.news.created).format("MMMM Do YYYY")) +
-                "   \n                    "
-            ),
-            _c("i", { staticClass: "fa fa-heart" }),
-            _vm._v(
-              " " +
-                _vm._s(_vm.news.active_votes.length) +
-                "   \n                    "
-            ),
-            _c("i", { staticClass: "fa fa-comment" }),
-            _vm._v(" " + _vm._s(_vm.news.replies.length) + "\n                ")
-          ])
-        ])
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            staticStyle: { color: "white" }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-content", staticStyle: { color: "white" } },
+              [
+                _c("p", {
+                  staticStyle: { color: "white" },
+                  domProps: { innerHTML: _vm._s(_vm.currentNews.news) }
+                }),
+                _vm._v(" "),
+                _c("i", { staticClass: "fa fa-calendar-check-o" }),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(
+                      _vm.moment(_vm.currentNews.created).format("MMMM Do YYYY")
+                    ) +
+                    "   \n                    "
+                ),
+                _c("i", { staticClass: "fa fa-heart" }),
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.currentNews.upvotes.length) +
+                    "   \n                    "
+                ),
+                _c("i", { staticClass: "fa fa-comment" }),
+                _vm._v(
+                  " " +
+                    _vm._s(_vm.currentNews.comments.length) +
+                    "\n                "
+                )
+              ]
+            )
+          ]
+        )
       ]
     )
   ])

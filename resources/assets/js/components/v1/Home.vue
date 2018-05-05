@@ -207,16 +207,16 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true" class="fa fa-close"></span>
             </button>
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <p v-html="currentNews" style="color: white">
+            <div class="modal-dialog modal-dialog-centered" style="color:white">
+                <div class="modal-content" style="color:white">
+                    <p v-html="currentNews.news" style="color: white;">
 
                     </p>
 
                     <i class="fa fa-calendar-check-o"></i>
-                    {{moment(news.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
-                    <i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;
-                    <i class="fa fa-comment"></i> {{news.replies.length}}
+                    {{moment(currentNews.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
+                    <i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;
+                    <i class="fa fa-comment"></i> {{currentNews.comments.length}}
                 </div>
             </div>
         </div>
@@ -234,7 +234,12 @@
                newsData: {},
                 start:false,
                 pagination:1,
-                currentNews:'nothing',
+                currentNews: {
+                   news : 'nothing',
+                   upvotes : 0,
+                   comments : 0,
+                   created_at : 0
+                },
             }
         },
 
@@ -305,7 +310,10 @@
             },
 
             openModal(news){
-                this.currentNews = news.newBody;
+                this.currentNews.news = news.newBody;
+                this.currentNews.upvotes = news.active_votes;
+                this.currentNews.comments = news.replies;
+                this.currentNews.created_at = news.created;
             }
         }
     }

@@ -264,8 +264,19 @@
 
                     <i class="fa fa-calendar-check-o"></i>
                     {{moment(currentNews.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
-                    <a href="#"><i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;</a>
-                    <a href="#"><i class="fa fa-comment"></i> {{currentNews.comments.length}}</a>
+                    <a href="#" v-if="login && currentNews.userHasVoted">
+                        <i class="fa fa-heart" style="color:red;"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;
+                    </a>
+
+                    <a href="#" v-if="login && !currentNews.userHasVoted" @click.prevent="upvote(currentNews)">
+                        <i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;
+                        <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:10%"></i>
+                    </a>
+
+                    <a href="#" v-if="login"><i class="fa fa-comment"></i> {{currentNews.comments.length}}</a>
+
+                    <span v-if="!login"><i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;</span>
+                    <span v-if="!login"><i class="fa fa-comment" v-if="!login"></i> {{currentNews.comments.length}}</span>
                 </div>
             </div>
         </div>
@@ -377,6 +388,7 @@
                 this.currentNews.upvotes = news.active_votes;
                 this.currentNews.comments = news.replies;
                 this.currentNews.created_at = news.created;
+                this.currentNews.userHasVoted = news.userHasVoted;
             },
 
             steemConnectLogin(){
@@ -442,7 +454,6 @@
                         this.loading = false;
                         this.$notify({type: 'success', text: 'successfully upvoted', speed:400});
                         news.userHasVoted = true;
-                        console.log(res);
                     }
                 }.bind(this));
             },

@@ -118592,6 +118592,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -118685,6 +118696,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.currentNews.upvotes = news.active_votes;
             this.currentNews.comments = news.replies;
             this.currentNews.created_at = news.created;
+            this.currentNews.userHasVoted = news.userHasVoted;
         },
         steemConnectLogin: function steemConnectLogin() {
             this.api = sc2.Initialize({
@@ -118746,7 +118758,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     this.loading = false;
                     this.$notify({ type: 'success', text: 'successfully upvoted', speed: 400 });
                     news.userHasVoted = true;
-                    console.log(res);
                 }
             }.bind(this));
         }
@@ -119487,15 +119498,78 @@ var render = function() {
                       ) +
                       "   \n                    "
                   ),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "fa fa-heart" }),
-                    _vm._v(" " + _vm._s(_vm.currentNews.upvotes.length) + "   ")
-                  ]),
+                  _vm.login && _vm.currentNews.userHasVoted
+                    ? _c("a", { attrs: { href: "#" } }, [
+                        _c("i", {
+                          staticClass: "fa fa-heart",
+                          staticStyle: { color: "red" }
+                        }),
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.currentNews.upvotes.length) +
+                            "   \n                    "
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "fa fa-comment" }),
-                    _vm._v(" " + _vm._s(_vm.currentNews.comments.length))
-                  ])
+                  _vm.login && !_vm.currentNews.userHasVoted
+                    ? _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.upvote(_vm.currentNews)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-heart" }),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.currentNews.upvotes.length) +
+                              "   \n                        "
+                          ),
+                          _vm.loading
+                            ? _c("i", [
+                                _c("img", {
+                                  staticStyle: { width: "10%" },
+                                  attrs: {
+                                    src: "/assets/v1/images/blue_loading.gif",
+                                    alt: ""
+                                  }
+                                })
+                              ])
+                            : _vm._e()
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.login
+                    ? _c("a", { attrs: { href: "#" } }, [
+                        _c("i", { staticClass: "fa fa-comment" }),
+                        _vm._v(" " + _vm._s(_vm.currentNews.comments.length))
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.login
+                    ? _c("span", [
+                        _c("i", { staticClass: "fa fa-heart" }),
+                        _vm._v(
+                          " " + _vm._s(_vm.currentNews.upvotes.length) + "   "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.login
+                    ? _c("span", [
+                        !_vm.login
+                          ? _c("i", { staticClass: "fa fa-comment" })
+                          : _vm._e(),
+                        _vm._v(" " + _vm._s(_vm.currentNews.comments.length))
+                      ])
+                    : _vm._e()
                 ]
               )
             ]

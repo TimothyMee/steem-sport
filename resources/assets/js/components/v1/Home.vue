@@ -24,6 +24,7 @@
                                     <li><a href="#">About</a></li>
                                     <li class="log" v-if="!login"><a href="#" @click="steemConnectLogin"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                                     <li class="sign" v-if="!login"><a href="https://signup.steemit.com/"><span>/</span> Sign Up</a></li>
+                                    <li class="sign" v-if="login"><a href="/new-post"><i class="fa fa-plus"></i> Add New Post </a></li>
                                     <li class="sign" v-if="login"><a href="https://signup.steemit.com/">{{user.username}}</a></li>
                                 </ul>
                             </nav>
@@ -110,6 +111,10 @@
 
                                         </span>
                                         <h3><a href="#" @click.prevent="openModal(news)">{{news.title}}</a></h3>
+
+                                        <hr>
+                                        <span><strong>${{news.pending_payout_value}}</strong></span>
+                                        <hr>
                                         <div class="read-more">
                                             <a href="#" @click.prevent="openModal(news)">Read More</a>
                                         </div>
@@ -143,10 +148,14 @@
                                 </div>
                             </div>-->
                             <div class="cate-box">
-                                <span class="title">Categories <span class="badge">new</span></span>
+                                <span class="title">Sort <span class="badge">{{sort}}</span></span>
                                 <ul>
-                                    <li v-for="(news,index) in newsData" v-if="index < 12">
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#">{{news.category}}</a>
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#" @click.prevent="sort = 'trending'">Trending</a>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#" @click.prevent="sort = 'new'">New</a>
                                     </li>
                                 </ul>
                             </div>
@@ -265,7 +274,6 @@
 
                 <div style="margin-left: 10%; width: 80%">
                     <hr>
-
                     <i class="fa fa-calendar-check-o"></i>
                     {{moment(currentNews.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
 
@@ -278,27 +286,65 @@
                         <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:5%"></i>
                     </a>
 
-                    <a href="#" v-if="login"><i class="fa fa-comment"></i> {{currentNews.active_comments.length}}</a>
-
                     <span v-if="!login"><i class="fa fa-heart"></i> {{currentNews.active_votes.length}} &nbsp;&nbsp;</span>
+
+
+                    <h6><strong>${{currentNews.pending_payout_value}}</strong></h6>
+
+
+                    <a href="#" v-if="login"><i class="fa fa-comment"></i> {{currentNews.active_comments.length}}</a>
                     <span v-if="!login"><i class="fa fa-comment" v-if="!login"></i> {{currentNews.active_comments.length}}</span>
 
+
+
+                    &nbsp;&nbsp;&nbsp;<a href="#" @click.prevent="showComment = !showComment">Comment</a>
                     <hr>
                 </div>
 
                 <div style="margin-left: 10%; width: 80%">
-                    <h4>Comments</h4>
-                    <markdown-editor preview-class = "markdown-body" v-model="commentMarkdown"></markdown-editor>
+                    <div v-if="showComment">
+                        <h4>Reply (Comment)</h4>
 
-                    <h4>Preview:</h4>
-                    <hr>
-                    <p v-html="commentPreview">
+                        <markdown-editor preview-class = "markdown-body" v-model="commentMarkdown"></markdown-editor>
 
-                    </p>
-                    <br>
-                    <button class="btn btn primary" @click.prevent="comment(currentNews)" style="float: right">Comment</button>
-                    <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:5%; float: right"></i>
-                    <br><br>
+                        <button class="btn btn primary" @click.prevent="comment(currentNews)" style="float: left">Comment</button>
+                        <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:5%;"></i>
+                        <br><br>
+                        <h4>Preview:</h4>
+                        <hr>
+                        <p v-html="commentPreview">
+
+                        </p>
+                        <br><br>
+                        <hr>
+                    </div>
+
+                    <div>
+                        <h4>Comments</h4>
+                        <hr>
+                        <div v-for="comment in currentNews.active_comments">
+                            <span>
+                                <h6>
+                                    <strong>{{comment.author}}</strong>&nbsp;&nbsp;
+                                     <i class="fa fa-calendar-check-o"></i>
+                                     {{moment(comment.created).format("MMMM Do YYYY")}}
+                                </h6>
+                            </span>
+
+                            <span>
+                                <h6 v-html="showdownMethod(comment.body)"></h6>
+                            </span>
+
+                            <span>
+                                <a href="#" v-if="login">
+                                    <i class="fa fa-heart"></i> {{comment.active_votes.length}} &nbsp;&nbsp;
+                                </a>
+                                <span v-if="!login"><i class="fa fa-heart"></i> {{comment.active_votes.length}} &nbsp;&nbsp;</span>
+                            </span>
+
+                            <hr>
+                        </div>
+                    </div>
                 </div>
             </modal>
 
@@ -331,6 +377,8 @@
                 commentMarkdown:'',
                 commentPreview:'',
                 modal:false,
+                showComment : false,
+                sort: 'trending'
             }
         },
 
@@ -345,17 +393,33 @@
                 var converter = new showdown.Converter();
 
                 this.commentPreview = converter.makeHtml(val);
+            },
+
+            sort:function(val){
+                this.getData();
             }
         },
 
         methods:{
             getData(){
-                steem.api.getDiscussionsByTrending({"tag":"sport", "limit": "50"}, function(err, result) {
+                this.start = false;
+                if(this.sort == 'trending'){
+                    steem.api.getDiscussionsByTrending({"tag":"sport", "limit": "50"}, function(err, result) {
 
-                    if (result){
-                        this.arrangeData(result);
-                    }
-                }.bind(this));
+                        if (result){
+                            this.arrangeData(result);
+                        }
+                    }.bind(this));
+                }
+
+                else if(this.sort == 'new'){
+                    steem.api.getDiscussionsByCreated({"tag":"sport", "limit": "50"}, function(err, result) {
+
+                        if (result){
+                            this.arrangeData(result);
+                        }
+                    }.bind(this));
+                }
             },
 
             arrangeData(newsData){
@@ -414,10 +478,8 @@
                     i++;
                 }.bind(this));
 
-                console.log("Guyyyyy");
                 this.newsData = newsData;
 
-                console.log(this.newsData);
                 this.start = true;
             },
 
@@ -508,7 +570,6 @@
                 this.loading = true;
 
                 this.api.me(function (err, res) {
-                    this.postingKey = res.account.posting.key_auths[0][0];
 //                    console.log(err, res);
                 }.bind(this));
 
@@ -527,12 +588,15 @@
                     if (result){
                         this.loading = false;
                         this.$notify({type: 'success', text: 'Comment was posted successfully', speed:400});
-
-                        this.getData();
                     }
 
                 }.bind(this));
 
+            },
+
+            showdownMethod(news){
+                var converter = new showdown.Converter();
+                return converter.makeHtml(news);
             }
         }
     }

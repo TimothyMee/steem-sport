@@ -23,6 +23,7 @@ Vue.use(VModal);
 Vue.use(VueSimplemde);
 Vue.use(Notifications);
 Vue.prototype.moment = moment;
+Vue.prototype.showdown = require('showdown');
 
 
 /**
@@ -32,6 +33,7 @@ Vue.prototype.moment = moment;
  */
 
 Vue.component('home', require('./components/v1/Home.vue'));
+Vue.component('new-post', require('./components/v1/NewPost.vue'));
 
 const app = new Vue({
     el: '#app'

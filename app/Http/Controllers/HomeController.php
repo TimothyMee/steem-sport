@@ -10,4 +10,9 @@ class HomeController extends Controller
     {
         return view('v1.home');
     }
+
+    public function newPost()
+    {
+        return view('v1.new-post');
+    }
 }

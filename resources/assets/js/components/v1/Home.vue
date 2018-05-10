@@ -297,12 +297,12 @@
 
 
 
-                    &nbsp;&nbsp;&nbsp;<a href="#" @click.prevent="showComment = !showComment">Comment</a>
+                    &nbsp;&nbsp;&nbsp;<a href="#" @click.prevent="showComment = !showComment" v-if="login">Comment</a>
                     <hr>
                 </div>
 
                 <div style="margin-left: 10%; width: 80%">
-                    <div v-if="showComment">
+                    <div v-if="showComment && login">
                         <h4>Reply (Comment)</h4>
 
                         <markdown-editor preview-class = "markdown-body" v-model="commentMarkdown"></markdown-editor>
@@ -383,7 +383,7 @@
         },
 
         mounted() {
-            console.log('Component mounted.');
+            this.SteemConnectAccessToken();
             this.getData();
             this.getUserExistingData();
         },

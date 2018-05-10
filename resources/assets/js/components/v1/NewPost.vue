@@ -207,6 +207,7 @@
         },
 
         mounted() {
+            this.SteemConnectAccessToken();
             this.getData();
             this.getUserExistingData();
         },

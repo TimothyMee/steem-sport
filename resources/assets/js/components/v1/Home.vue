@@ -1,6 +1,7 @@
 <template>
 
     <div>
+
         <notifications />
         <div class="header-middle-area menu-sticky">
             <div class="container">
@@ -73,16 +74,16 @@
                 <div class="row">
                     <div class="col-md-9 col-ms-12">
                         <div class="row">
-                            <div class="col-md-4 col-sm-6 col-xs-6" v-for="news in newsData">
+                            <div class="col-md-4 col-sm-6 col-xs-6" v-for="news in newsData" v-if="start">
                                 <div class="single-blog-slide" v-if="news.page == pagination">
                                     <div class="images">
-                                        <a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal" v-if="news.previewImage">
+                                        <a href="#" @click.prevent="openModal(news)" v-if="news.previewImage">
                                             <img :src="news.previewImage"
                                                  style="max-height:200px; width: 100%; height:200px;"
                                                  alt="Blog Image">
                                         </a>
 
-                                        <a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal" v-else>
+                                        <a href="#" @click.prevent="openModal(news)" v-else>
                                             <img src="/assets/v1/images/video-bg.jpg"
                                                  style="max-height:200px; width: 100%; height:200px;"
                                                  alt="Blog Image">
@@ -102,15 +103,15 @@
                                                 <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:10%"></i>
                                             </a>
 
-                                            <a href="#" v-if="login"><i class="fa fa-comment"></i> {{news.replies.length}}</a>
+                                            <a href="#" v-if="login" @click.prevent="openModal(news)"><i class="fa fa-comment"></i> {{news.active_comments.length}}</a>
 
                                             <span v-if="!login"><i class="fa fa-heart"></i> {{news.active_votes.length}} &nbsp;&nbsp;</span>
-                                            <span v-if="!login"><i class="fa fa-comment" v-if="!login"></i> {{news.replies.length}}</span>
+                                            <span v-if="!login"><i class="fa fa-comment" v-if="!login"></i> {{news.active_comments.length}}</span>
 
                                         </span>
-                                        <h3><a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal">{{news.title}}</a></h3>
+                                        <h3><a href="#" @click.prevent="openModal(news)">{{news.title}}</a></h3>
                                         <div class="read-more">
-                                            <a href="#" @click.prevent="openModal(news)" data-target="#newsModal" data-toggle="modal">Read More</a>
+                                            <a href="#" @click.prevent="openModal(news)">Read More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -252,41 +253,64 @@
         </div>
         <!-- Home Blog End Here -->
 
-        <div aria-hidden="true" class="modal fade search-modal" role="dialog" tabindex="-1" id="newsModal">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" class="fa fa-close"></span>
-            </button>
-            <div class="modal-dialog modal-dialog-centered" style="color:white">
-                <div class="modal-content" style="color:white">
-                    <p v-html="currentNews.news" style="color: white;">
+        <div class="container col-md-6 col-md-offset-3">
+            <modal name="fullNews" :draggable="true" :scrollable="true" @before-open="beforeOpen" :adaptive="true" height="auto" width="70%">
+                <button class="btn btn-danger btn-xs" @click="$modal.hide('fullNews')" style="float: right;"><span aria-hidden="true">&times;</span></button>
+                <br>
+                <span class="col-md-12" style="text-align: center; width: 80%; margin-left: 10%"><h2>{{currentNews.title}}</h2></span>
 
-                    </p>
+                <p v-html="currentNews.newBody" style="width: 80%; margin-left: 10%">
+
+                </p>
+
+                <div style="margin-left: 10%; width: 80%">
+                    <hr>
 
                     <i class="fa fa-calendar-check-o"></i>
                     {{moment(currentNews.created).format("MMMM Do YYYY")}} &nbsp;&nbsp;
+
                     <a href="#" v-if="login && currentNews.userHasVoted">
-                        <i class="fa fa-heart" style="color:red;"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;
+                        <i class="fa fa-heart" style="color:red;"></i> {{currentNews.active_votes.length}} &nbsp;&nbsp;
                     </a>
 
                     <a href="#" v-if="login && !currentNews.userHasVoted" @click.prevent="upvote(currentNews)">
-                        <i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;
-                        <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:10%"></i>
+                        <i class="fa fa-heart"></i> {{currentNews.active_votes.length}} &nbsp;&nbsp;
+                        <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:5%"></i>
                     </a>
 
-                    <a href="#" v-if="login"><i class="fa fa-comment"></i> {{currentNews.comments.length}}</a>
+                    <a href="#" v-if="login"><i class="fa fa-comment"></i> {{currentNews.active_comments.length}}</a>
 
-                    <span v-if="!login"><i class="fa fa-heart"></i> {{currentNews.upvotes.length}} &nbsp;&nbsp;</span>
-                    <span v-if="!login"><i class="fa fa-comment" v-if="!login"></i> {{currentNews.comments.length}}</span>
+                    <span v-if="!login"><i class="fa fa-heart"></i> {{currentNews.active_votes.length}} &nbsp;&nbsp;</span>
+                    <span v-if="!login"><i class="fa fa-comment" v-if="!login"></i> {{currentNews.active_comments.length}}</span>
+
+                    <hr>
                 </div>
-            </div>
-        </div>
 
+                <div style="margin-left: 10%; width: 80%">
+                    <h4>Comments</h4>
+                    <markdown-editor preview-class = "markdown-body" v-model="commentMarkdown"></markdown-editor>
+
+                    <h4>Preview:</h4>
+                    <hr>
+                    <p v-html="commentPreview">
+
+                    </p>
+                    <br>
+                    <button class="btn btn primary" @click.prevent="comment(currentNews)" style="float: right">Comment</button>
+                    <i v-if="loading"><img src="/assets/v1/images/blue_loading.gif" alt="" style="width:5%; float: right"></i>
+                    <br><br>
+                </div>
+            </modal>
+
+        </div>
 
     </div>
 
 </template>
 
 <script>
+    import 'simplemde/dist/simplemde.min.css' ;
+    import 'github-markdown-css' ;
     export default {
 
         data(){
@@ -295,16 +319,18 @@
                 start:false,
                 pagination:1,
                 currentNews: {
-                   news : 'nothing',
-                   upvotes : 0,
-                   comments : 0,
-                   created_at : 0
+                   active_votes: 0,
+                    replies:0,
+                    active_comments:0,
                 },
                 homeRoute:'/home',
                 api:{},
                 login:false,
                 user:{},
                 loading:false,
+                commentMarkdown:'',
+                commentPreview:'',
+                modal:false,
             }
         },
 
@@ -312,6 +338,14 @@
             console.log('Component mounted.');
             this.getData();
             this.getUserExistingData();
+        },
+
+        watch:{
+            commentMarkdown: function(val){
+                var converter = new showdown.Converter();
+
+                this.commentPreview = converter.makeHtml(val);
+            }
         },
 
         methods:{
@@ -329,6 +363,14 @@
                 var i = 1;
                 var currentNewsData = [];
                 newsData.forEach(function (news){
+
+                    news.active_comments = 0;
+
+                    /*getting the comments*/
+                    steem.api.getContentReplies(news.author, news.permlink, function(err, result) {
+                        news.active_comments = result;
+                    });
+
                     var converter = new showdown.Converter();
                     news.newBody = converter.makeHtml(news.body);
 
@@ -360,6 +402,7 @@
                         news.page = 5
                     }
 
+
                     if(this.login){
                         news.active_votes.forEach(function(votes){
                             if(votes.voter == this.user.username){
@@ -372,10 +415,9 @@
                 }.bind(this));
 
                 console.log("Guyyyyy");
-                console.log(newsData);
-
                 this.newsData = newsData;
 
+                console.log(this.newsData);
                 this.start = true;
             },
 
@@ -384,11 +426,11 @@
             },
 
             openModal(news){
-                this.currentNews.news = news.newBody;
-                this.currentNews.upvotes = news.active_votes;
-                this.currentNews.comments = news.replies;
-                this.currentNews.created_at = news.created;
-                this.currentNews.userHasVoted = news.userHasVoted;
+               this.$modal.show('fullNews' ,news);
+            },
+
+            beforeOpen (event) {
+                this.currentNews = event.params;
             },
 
             steemConnectLogin(){
@@ -439,13 +481,16 @@
                         scope: ['vote', 'comment']
                     });
 
-                    this.login = true;
+                    if(this.api){
+                        this.login = true;
+                    }
                     this.getData();
                 }
             },
 
             upvote(news){
                 this.loading = true;
+                console.log(news);
                 this.api.vote(this.user.username, news.author, news.permlink, 10000, function (err, res) {
                     if(err){
                         this.$notify({type: 'error', text: '<span style="color: white">Couldn\'t Upvote now, <br> Try again later </span>', speed:400});
@@ -457,6 +502,38 @@
                     }
                 }.bind(this));
             },
+
+            comment(news){
+
+                this.loading = true;
+
+                this.api.me(function (err, res) {
+                    this.postingKey = res.account.posting.key_auths[0][0];
+//                    console.log(err, res);
+                }.bind(this));
+
+                this.api.setAccessToken(localStorage.getItem('accessToken'));
+
+                var username = localStorage.getItem('username');
+                var commentPermlink = steem.formatter.commentPermlink(news.author, news.permlink);
+
+                this.api.comment(news.author, news.permlink,username, commentPermlink, '',this.commentMarkdown, '', function(err, result) {
+                    console.log(err, result);
+
+                    if(err){
+                        this.$notify({type: 'error', text: '<span style="color: white">Couldn\'t Comment now, <br> Try again later </span>', speed:400});
+                    }
+
+                    if (result){
+                        this.loading = false;
+                        this.$notify({type: 'success', text: 'Comment was posted successfully', speed:400});
+
+                        this.getData();
+                    }
+
+                }.bind(this));
+
+            }
         }
     }
 </script>

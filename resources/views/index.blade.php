@@ -50,66 +50,7 @@
 <body data-spy="scroll" data-target="#scroll-menu" data-offset="100">
 <div id="preloader"></div>
 <header>
-    <!-- .header-area-start -->
-    <div class="header-area main_h white-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-10">
-                    <div class="logo">
-                        <a href="#"><!--<img src="img/logo.png" alt="" />--> <h1 class="text">Steem-Sport</h1></a>
-                    </div>
-                </div>
-                <div class="col-lg-8 col-md-8 hidden-sm hidden-xs">
-                    <div class="mainmenu floatright">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="#">sign up</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('login')}}">login</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-lg-1 col-md-1 col-sm-6 col-xs-2">
-                    <div class="search-block-top display-inline text-right">
-                        <div class="icon-search"></div>
-                        <div class="toogle-content">
-                            <form action="#" id="searchbox">
-                                <input type="text" placeholder="Search" />
-                                <button class="button-search"></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- mobile-menu-area-start -->
-        <div class="mobile-menu-area visible-xs visible-sm">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mobile-menu">
-                            <nav id="mobile-menu">
-                                <ul>
-                                    <li>
-                                        <a href="#">sign up</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">login</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- mobile-menu-area-end -->
-    </div>
-    <!-- .header-area-end -->
+
 </header>
 <!-- slider-area-start -->
 <!-- slider-container start -->

@@ -25,6 +25,7 @@ Route::post('login', 'AuthController@postLogin')->name('auth.login');
 
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/new-post', 'HomeController@newPost')->name('new-post');
+Route::get('/profile', 'HomeController@userProfile')->name('user-profile');
 
 
 

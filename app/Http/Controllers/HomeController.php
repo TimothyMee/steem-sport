@@ -15,4 +15,9 @@ class HomeController extends Controller
     {
         return view('v1.new-post');
     }
+
+    public function userProfile()
+    {
+        return view('v1.user-profile');
+    }
 }

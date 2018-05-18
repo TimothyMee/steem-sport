@@ -34,6 +34,7 @@ Vue.prototype.showdown = require('showdown');
 
 Vue.component('home', require('./components/v1/Home.vue'));
 Vue.component('new-post', require('./components/v1/NewPost.vue'));
+Vue.component('user-profile', require('./components/v1/UserProfile.vue'));
 
 const app = new Vue({
     el: '#app'

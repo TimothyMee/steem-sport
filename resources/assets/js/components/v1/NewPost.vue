@@ -25,7 +25,7 @@
                                     <li class="log" v-if="!login"><a href="#" @click="steemConnectLogin"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                                     <li class="sign" v-if="!login"><a href="https://signup.steemit.com/"><span>/</span> Sign Up</a></li>
                                     <li class="sign" v-if="login"><a href="/new-post"><i class="fa fa-plus"></i> Add New Post </a></li>
-                                    <li class="sign" v-if="login"><a href="https://signup.steemit.com/">{{user.username}}</a></li>
+                                    <li class="sign" v-if="login"><a href="/profile">{{user.username}}</a></li>
                                 </ul>
                             </nav>
                             <!--Header Search Start  here-->

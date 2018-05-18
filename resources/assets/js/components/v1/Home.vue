@@ -25,7 +25,7 @@
                                     <li class="log" v-if="!login"><a href="#" @click="steemConnectLogin"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                                     <li class="sign" v-if="!login"><a href="https://signup.steemit.com/"><span>/</span> Sign Up</a></li>
                                     <li class="sign" v-if="login"><a href="/new-post"><i class="fa fa-plus"></i> Add New Post </a></li>
-                                    <li class="sign" v-if="login"><a href="https://signup.steemit.com/">{{user.username}}</a></li>
+                                    <li class="sign" v-if="login"><a href="/profile">{{user.username}}</a></li>
                                 </ul>
                             </nav>
                             <!--Header Search Start  here-->
@@ -539,13 +539,19 @@
                     this.api = sc2.Initialize({
                         app: 'steem-sports.app',
                         callbackURL: 'http://localhost:8000/home',
-                        accessToken: accessToken,
+                        accessToken: "access_token",
                         scope: ['vote', 'comment']
                     });
 
-                    if(this.api){
-                        this.login = true;
-                    }
+                    this.api.setAccessToken(localStorage.getItem('accessToken'));
+
+                    /*checking if user is still logged in */
+                    this.api.me(function (err, res){
+                        if (res){
+                            this.login = true;
+                        }
+                    }.bind(this));
+
                     this.getData();
                 }
             },

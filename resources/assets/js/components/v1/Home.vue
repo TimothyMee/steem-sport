@@ -428,6 +428,23 @@
                         }
                     }.bind(this));
                 }
+
+                else if(this.sort == 'hot'){
+
+                    steem.api.getDiscussionsByHot({"tag":"sport", "limit": "50"}, function(err, result) {
+                        if (result){
+                            this.arrangeData(result);
+                        }
+                    }.bind(this));
+                }
+
+                else if(this.sort == 'promoted'){
+                    steem.api.getDiscussionsByPromoted({"tag":"sport", "limit": "3"}, function(err, result) {
+                        if (result){
+                            this.arrangeData(result);
+                        }
+                    }.bind(this));
+                }
             },
 
             arrangeData(newsData){

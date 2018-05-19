@@ -622,7 +622,68 @@
                 }.bind(this));
             },
 
+            getOwnerCommentHistory(){
+                this.loading = true;
+                this.showWallet = false;
+                this.showBlog = false;
+                steem.api.getDiscussionsByComments({"start_author":this.userData.name, "limit": "50"}, function(err, result) {
 
+                    result.forEach(function (res) {
+                        var converter = new showdown.Converter();
+                        res.newBody = converter.makeHtml(res.body);
+                    });
+
+                    this.userCommentHistory = result;
+                    console.log(this.userCommentHistory);
+                    this.loading = false;
+                    this.showComments = true;
+                }.bind(this));
+            },
+
+
+
+            upvote(news){
+                this.upvotingLoader = true;
+                this.api.vote(this.userData.name, news.author, news.permlink, 10000, function (err, res) {
+                    if(err){
+                        this.$notify({type: 'error', text: '<span style="color: white">Couldn\'t Upvote now, <br> Try again later </span>', speed:400});
+                    }
+                    if(res){
+                        this.upvotingLoader = false;
+                        this.$notify({type: 'success', text: 'successfully upvoted', speed:400});
+                        news.userHasVoted = true;
+                    }
+                }.bind(this));
+            },
+
+            comment(news){
+
+                this.commentLoader = true;
+
+                this.api.me(function (err, res) {
+//                    console.log(err, res);
+                }.bind(this));
+
+                this.api.setAccessToken(localStorage.getItem('accessToken'));
+
+                var username = localStorage.getItem('username');
+                var commentPermlink = steem.formatter.commentPermlink(news.author, news.permlink);
+
+                this.api.comment(news.author, news.permlink,username, commentPermlink, '',this.commentMarkdown, '', function(err, result) {
+                    console.log(err, result);
+
+                    if(err){
+                        this.$notify({type: 'error', text: '<span style="color: white">Couldn\'t Comment now, <br> Try again later </span>', speed:400});
+                    }
+
+                    if (result){
+                        this.commentLoader = false;
+                        this.$notify({type: 'success', text: 'Comment was posted successfully', speed:400});
+                    }
+
+                }.bind(this));
+
+            },
 
             openModal(news){
                 this.$modal.show('fullStory' ,news);

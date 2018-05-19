@@ -640,7 +640,47 @@
                 }.bind(this));
             },
 
+            getOwnerWalletHistory(){
+                this.loading = true;
+                this.showBlog = false;
+                this.showComments = false;
 
+                /*parsing the strings to float*/
+                this.userData.account.vesting_shares = parseFloat(this.userData.account.vesting_shares);
+
+                /*getting the  account transfer history*/
+                this.getTransferHistory();
+
+                /*calculating the account steem-power and estimated account value*/
+                if (this.totalVesting.shares) {
+                    this.getSteemPower();
+                }
+            },
+
+            getCurrentVestingShares(){
+                /*getting the current vesting shares*/
+                steem.api.getDynamicGlobalProperties(function (err, result) {
+
+                    this.totalVesting.shares = parseFloat(result.total_vesting_shares);
+                    this.totalVesting.fundSteem = parseFloat(result.total_vesting_fund_steem);
+                }.bind(this));
+            },
+
+            getTransferHistory(){
+                /*getting the transfer history*/
+                steem.api.getAccountHistory(this.userData.name, -1, 500,function(err, result) {
+                    let transfers = result.filter( tx => tx[1].op[0] === 'transfer')
+                    this.transferHistory =  transfers;
+                    console.log(this.transferHistory);
+                }.bind(this));
+            },
+
+            getSteemPower(){
+                /*calculating steem power*/
+                this.userData.account.steemPower = steem.formatter.vestToSteem(this.userData.account.vesting_shares, this.totalVesting.shares, this.totalVesting.fundSteem).toFixed(3);
+                this.loading = false;
+                this.showWallet = true;
+            },
 
             upvote(news){
                 this.upvotingLoader = true;

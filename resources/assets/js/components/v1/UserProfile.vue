@@ -623,6 +623,20 @@
             },
 
 
+
+            openModal(news){
+                this.$modal.show('fullStory' ,news);
+            },
+
+            beforeOpen (event) {
+                this.currentStory = event.params;
+            },
+
+            showdownMethod(news){
+                var converter = new showdown.Converter();
+                return converter.makeHtml(news);
+            },
+
             /*getEstimatedAccountValue(accountName){
                 console.log(steem.formatter.estimateAccountValue(accountName));
             }*/

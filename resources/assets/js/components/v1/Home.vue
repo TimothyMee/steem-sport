@@ -157,6 +157,14 @@
                                     <li>
                                         <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#" @click.prevent="sort = 'new'">New</a>
                                     </li>
+
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#" @click.prevent="sort = 'hot'">Hot</a>
+                                    </li>
+
+                                    <li>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#" @click.prevent="sort = 'promoted'">Promoted</a>
+                                    </li>
                                 </ul>
                             </div>
 

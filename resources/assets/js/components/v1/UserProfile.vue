@@ -272,7 +272,7 @@
                         <!-- Blog Single Sidebar Start Here -->
                         <div class="sidebar-area">
                             <div class="cate-box">
-                                <span class="title">Navs <span class="badge">Blog</span></span>
+                                <span class="title">Navs <span class="badge">{{pageName}}</span></span>
                                 <ul>
                                     <li>
                                         <i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -449,6 +449,7 @@
                 commentMarkdown:'',
                 showComment : false,
                 showReplyComment:false,
+                pageName:'',
 
 
 
@@ -571,6 +572,7 @@
                 this.loading = true;
                 this.showWallet = false;
                 this.showComments = false;
+                this.pageName = "Blog"
 
                 var param = {
                     tag: this.userData.user,
@@ -626,6 +628,8 @@
                 this.loading = true;
                 this.showWallet = false;
                 this.showBlog = false;
+                this.pageName = "Comments"
+
                 steem.api.getDiscussionsByComments({"start_author":this.userData.name, "limit": "50"}, function(err, result) {
 
                     result.forEach(function (res) {
@@ -644,6 +648,8 @@
                 this.loading = true;
                 this.showBlog = false;
                 this.showComments = false;
+                this.pageName = "Wallet"
+
 
                 /*parsing the strings to float*/
                 this.userData.account.vesting_shares = parseFloat(this.userData.account.vesting_shares);

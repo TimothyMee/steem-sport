@@ -336,7 +336,7 @@
                             </span>
 
                             <span>
-                                <a href="#" v-if="login">
+                                <a href="#" v-if="login" @click.prevent="upvote(comment)">
                                     <i class="fa fa-heart"></i> {{comment.active_votes.length}} &nbsp;&nbsp;
                                 </a>
                                 <span v-if="!login"><i class="fa fa-heart"></i> {{comment.active_votes.length}} &nbsp;&nbsp;</span>

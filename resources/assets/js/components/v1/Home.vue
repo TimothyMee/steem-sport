@@ -162,9 +162,9 @@
                                         <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#" @click.prevent="sort = 'hot'">Hot</a>
                                     </li>
 
-                                    <li>
+                                    <!--<li>
                                         <i class="fa fa-angle-right" aria-hidden="true"></i> <a href="#" @click.prevent="sort = 'promoted'">Promoted</a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
 
